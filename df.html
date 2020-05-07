@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>深度森林</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css"/>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/echart.min.js"></script>
+    <style>
+        th {text-align:center}
+        div {display: inline-block}
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+
+
+
+            <select id="mon">
+                <option value="1">Jan</option>
+                <option value="2">Feb</option>
+                <option value="3">Mar</option>
+                <option value="4">Apr</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">Aug</option>
+                <option value="9">Sep</option>
+                <option value="10">Oct</option>
+                <option value="11">Nov</option>
+                <option value="12">Dec</option>
+            </select>
+
+            <select id="num" >
+                <option value="0">第一折</option>
+                <option value="1">第二折</option>
+                <option value="2">第三折</option>
+                <option value="3">第四折</option>
+                <option value="4">第五折</option>
+                <option value="5">第六折</option>
+                <option value="6">第七折</option>
+                <option value="7">第八折</option>
+                <option value="8">第九折</option>
+                <option value="9">第十折</option>
+            </select>
+
+            <button type="button" class="btn btn-default" onclick="show()" >开始计算</button>
+
+
+            <ul class="nav navbar-nav navbar-right" >
+                <li><a href="index.html" >返回首页</a></li>
+            </ul>
+
+
+
+
+
+    </div><!-- /.container-fluid -->
+</nav>
+<div id = "main0" style="width: 15%; height:500px;"></div>
+<div id = "main1" style="width: 15%; height:500px;"></div>
+<div id = "main2" style="width: 15%; height:500px;"></div>
+<div id = "main3" style="width: 15%; height:500px;"></div>
+<div id = "main4" style="width: 15%; height:500px;"></div>
+<div id = "main5" style="width: 15%; height:500px;"></div>
+<div id = "main6" style="width: 15%; height:500px;"></div>
+<script>
+    function show() {
+        var select1 = document.getElementById("mon");
+        var select2 = document.getElementById("num");
+
+
+        var i=0;
+        var j=0;
+        var dflay =[];
+        dflay[0]=0;
+
+
+
+        $.ajax({
+            url: "https://www.aleph-null.cn/railway/ppd/lisHisDF?pageSize=999&paseNum=1&month=2&fold=0",
+            data: {},
+            type: 'GET',
+            success: function(res) {
+
+                $.each(res.data.list,function (index,item) {
+                    if(item.ppdHisDfLay!=dflay[j]){
+                        j+=1;
+                        dflay[j]=item.ppdHisDfLay
+                    }
+
+                })
+                // alert(dflay.length)
+                hrFun(dflay);
+            },
+        });
+        // 心率
+        function sleep(d){
+            for(var t = Date.now();Date.now() - t <= d;);
+        }
+        //hrChart.showLoading();
+        function hrFun(lay) {
+            var k;
+
+            var id = [];
+            var dfacc = [];
+            var j=0;
+            for (k = 0; k < lay.length; k++) {
+                if(k!=0){
+                    sleep(2000)
+                }
+                id.length=0
+                dfacc.length=0
+                var i = 0;
+
+                var l = 0;
+
+
+                $.ajax({
+                    async:false,
+                    url: "https://www.aleph-null.cn/railway/ppd/lisHisDF?pageSize=999&paseNum=1&month="+select1.value+"&fold="+select2.value,
+                    data: {},
+                    type: 'GET',
+                    success: function (res) {
+                        console.log(res)
+                        $.each(res.data.list, function (index, item) {
+
+                            if (item.ppdHisDfLay == lay[k] && item.ppdHisDfEsFold == -1) {
+                                dfacc[i] = item.ppdHisDfAcc
+                                id[l] = l+1;
+                                l++;
+                                i++;
+                            }
+
+
+                        })
+                        //alert(data)
+
+
+                    },
+                });
+
+
+                var hrChart = echarts.init(document.getElementById("main" + lay[k]));
+                hrChart.setOption({
+                    title:{
+                        text:"第"+(lay[k]+1)+"层"
+                    },
+                    color: ['#3398DB'],
+                    animationDuration:3000,
+                    tooltip: {
+                        trigger: 'axis',
+                        duration:1000,
+                        axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                            type: 'line' // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+                    // legend: {
+                    //     data: ['训练集准确率', '验证集准确率']
+                    // },
+                    xAxis: [{
+                        type: 'value',
+                        max:100,
+                        min:0,
+                        name:'acc'
+
+                    }],
+                    yAxis: [{ // 纵轴标尺固定
+                        type: 'category',
+                        scale: true,
+                       // name: '第'+id[k]+'个基学习器',
+                        max: id.length,
+                        min: 0,
+                        splitLine:false,
+                        data:id
+                        // boundaryGap: [0.2, 0.2]
+                    }],
+                    series: [{
+                        itemStyle: {
+                            normal: {
+                                label: {
+                                    show: true, //开启显示
+                                    position: 'top', //在上方显示
+                                    textStyle: { //数值样式
+                                        color: 'black',
+                                        fontSize: 16
+                                    }
+                                }
+                            }
+                        },
+                        barWidth:30,
+                        symbol: "none",
+                        name: '准确率',
+                        type: 'bar',
+                        data: dfacc
+                    },
+                    ]
+                }, true);}
+
+
+
+        }
+
+
+
+
+
+
+    }
+
+
+
+</script>
+
+</body>
+</html>
