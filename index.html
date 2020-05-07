@@ -19,7 +19,9 @@
     <link rel="stylesheet" href="css/magnific-popup.css">
     <!-- Bootstrap  -->
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/le.css">
     <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="lib/vue.js" type="text/javascript"></script>
 
         <script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
     <script type="text/javascript">
@@ -109,20 +111,6 @@
         <div class="navbar-collapse collapse" style="height: 1px;">
 
           <ul id="main-menu" class="nav navbar-nav navbar-right">
-
-
-
-<!--              <ul class="dropdown-menu">-->
-<!--                <li><a href="./">My Account</a></li>-->
-<!--                <li class="divider"></li>-->
-<!--                <li class="dropdown-header">Admin Panel</li>-->
-<!--                <li><a href="./">Users</a></li>-->
-<!--                <li><a href="./">Security</a></li>-->
-<!--                <li><a tabindex="-1" href="./">Payments</a></li>-->
-<!--                <li class="divider"></li>-->
-<!--                <li><a tabindex="-1" href="sign-in.html">Logout</a></li>-->
-<!--              </ul>-->
-<!--            </li>-->
           </ul>
 
         </div>
@@ -134,22 +122,7 @@
 
     <div class="sidebar-nav">
     <ul>
-<!--    <li><a href="#" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> 监控中心<i class="fa fa-collapse"></i></a></li>-->
         <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> 监控中心</a></li>
-
-<!--        <li><ul class="accounts-menu nav nav-list collapse">-->
-<!--            <li ><a href="sign-in.html"><span class="fa fa-caret-right"></span> Sign In</a></li>-->
-<!--            <li ><a href="sign-up.html"><span class="fa fa-caret-right"></span> Sign Up</a></li>-->
-<!--            <li ><a href="reset-password.html"><span class="fa fa-caret-right"></span> Reset Password</a></li>-->
-<!--    </ul></li>-->
-
-<!--        <li><a href="#" data-target=".legal-menu1" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-legal"></i> 配置<i class="fa fa-collapse"></i></a></li>-->
-<!--        <li><ul class="legal-menu1 nav nav-list collapse">-->
-<!--            <li ><a href="privacy-policy.html"><span class="fa fa-caret-right"></span> 1</a></li>-->
-<!--            <li ><a href="terms-and-conditions.html"><span class="fa fa-caret-right"></span> 2</a></li>-->
-<!--            <li ><a href="terms-and-conditions.html"><span class="fa fa-caret-right"></span> 3</a></li>-->
-<!--    </ul></li>-->
-
         <li><a href="#" data-target=".legal-menu2" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 算法演示(PPD)<i class="fa fa-collapse"></i></a></li>
         <li><ul class="legal-menu2 nav nav-list collapse" >
             <li ><a href="nn.html"><span class="fa fa-caret-right"></span> 神经网络</a></li>
@@ -169,97 +142,69 @@
 
     <div class="content">
         <div class="header">
-            <div class="stats">
-
-</div>
-
+            <div class="stats"></div>
             <h1 class="page-title">监控中心</h1>
         </div>
         <div class="main-content">
-            
+            <div style="font-size: 20px">温度监控</div>
+            <table id="temperature" style="width: 100%;font-size:16px;text-align: center;margin-bottom: 20px;margin-top: 20px">
+                <tr style="width: 100%;color: #666666;height: 35px;background: #ffeeee">
+                    <td style="border: 1px solid #00000022">传感器编号</td>
+                    <td style="border: 1px solid #00000022">当前空气温度</td>
+                    <td style="border: 1px solid #00000022">传感器状态</td>
+                </tr>
+                <tr v-for="(obj) in data" class="hoverTR" style="width: 100%;font-size:16px;color: #666666;height: 35px">
+                    <td v-text="obj.id" style="border: 1px solid #00000022;display: none"></td>
+                    <td v-text="obj.code" style="border: 1px solid #00000022;"></td>
+                    <td style="border: 1px solid #00000022">{{obj.temperature}} ℃</td>
+                    <td v-if="obj.stage==='1'" style="border: 1px solid #00000022;color: #2aaf67">运行中</td>
+                    <td v-else style="border: 1px solid #00000022;color: #f54349">未运行</td>
+                </tr>
+            </table>
+            <div style="font-size: 20px">湿度监控</div>
 
+            <table id="humidity" style="width: 100%;font-size:16px;text-align: center;margin-bottom: 20px;margin-top: 20px">
+                <tr style="width: 100%;color: #666666;height: 35px;background: #eeeeff">
+                    <td style="border: 1px solid #00000022">传感器编号</td>
+                    <td style="border: 1px solid #00000022">当前空气湿度</td>
+                    <td style="border: 1px solid #00000022">传感器状态</td>
+                </tr>
+                <tr v-for="(obj) in data" class="hoverTR" style="width: 100%;font-size:16px;color: #666666;height: 35px">
+                    <td v-text="obj.id" style="border: 1px solid #00000022;display: none"></td>
+                    <td v-text="obj.code" style="border: 1px solid #00000022;"></td>
+                    <td style="border: 1px solid #00000022"><div>{{obj.humidity}} %</div></td>
+                    <td v-if="obj.stage==='1'" style="border: 1px solid #00000022;color: #2aaf67">运行中</td>
+                    <td v-else style="border: 1px solid #00000022;color: #f54349">未运行</td>
+                </tr>
+            </table>
+            <div style="font-size: 20px">二氧化碳浓度监控</div>
 
-
-
+            <table id="co2" style="width: 100%;font-size:16px;text-align: center;margin-bottom: 20px;margin-top: 20px">
+                <tr style="width: 100%;color: #666666;height: 35px;background: #ffffee">
+                    <td style="border: 1px solid #00000022">传感器编号</td>
+                    <td style="border: 1px solid #00000022">二氧化碳浓度</td>
+                    <td style="border: 1px solid #00000022">传感器状态</td>
+                </tr>
+                <tr v-for="(obj) in data" class="hoverTR" style="width: 100%;font-size:16px;color: #666666;height: 35px">
+                    <td v-text="obj.id" style="border: 1px solid #00000022;display: none"></td>
+                    <td v-text="obj.code" style="border: 1px solid #00000022;"></td>
+                    <td style="border: 1px solid #00000022"><div>{{obj.co2}} ppm</div></td>
+                    <td v-if="obj.stage==='1'" style="border: 1px solid #00000022;color: #2aaf67">运行中</td>
+                    <td v-else style="border: 1px solid #00000022;color: #f54349">未运行</td>
+                </tr>
+            </table>
     <div class="panel panel-default">
         <a href="#page-stats" class="panel-heading" data-toggle="collapse">温度</a>
         <div id="page-stats" class="panel-collapse panel-body collapse in">
+
             <button onclick="add_temp()" >增加</button>
-                    <div class="row" id="temp">
-                        <div class="col-md-3 col-sm-6"   >
-                            <h3 class="text-muted text-center"> 传感器编号：1</h3><br>
-                            <h3 class="text-muted text-center"> 当前温度：22℃</h3><br>
-                            <h3 class="text-muted text-center" style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-<!--                                <input class="knob" data-width="200" data-min="0" data-max="4500" data-displayPrevious="true" value="3299" data-fgColor="#92A3C2" data-readOnly=true;>-->
-                                <h3 class="text-muted text-center"> 传感器编号：2</h3><br>
-                                <h3 class="text-muted text-center"> 当前温度：22℃</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen" > 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-<!--                                <input class="knob" data-width="200" data-min="0" data-max="2700" data-displayPrevious="true" value="1840" data-fgColor="#92A3C2" data-readOnly=true;>-->
-                                <h3 class="text-muted text-center"> 传感器编号：3</h3><br>
-                                <h3 class="text-muted text-center"> 当前温度：22℃</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-<!--                                <input class="knob" data-width="200" data-min="0" data-max="15000" data-displayPrevious="true" value="10067" data-fgColor="#92A3C2" data-readOnly=true;>-->
-                                <h3 class="text-muted text-center"> 传感器编号：4</h3><br>
-                                <h3 class="text-muted text-center"> 当前温度：22℃</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                    </div>
         </div>
     </div>
-
-
-
             <div class="panel panel-default">
                 <a href="#page-stats1" class="panel-heading" data-toggle="collapse">湿度</a>
                 <div id="page-stats1" class="panel-collapse panel-body collapse in">
+
                     <button onclick="add_humid()" >增加</button>
-
-                    <div class="row" id="humid">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：1</h3><br>
-                                <h3 class="text-muted text-center"> 当前湿度：50</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：2</h3><br>
-                                <h3 class="text-muted text-center"> 当前湿度：50</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：3</h3><br>
-                                <h3 class="text-muted text-center"> 当前湿度：50</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-                                <h3 class="text-muted text-center"> 传感器编号：4</h3><br>
-                                <h3 class="text-muted text-center"> 当前湿度：50</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
             </div>
@@ -271,50 +216,9 @@
                 <a href="#page-stats2" class="panel-heading" data-toggle="collapse">二氧化碳浓度</a>
 
                 <div id="page-stats2" class="panel-collapse panel-body collapse in">
+
+
                     <button onclick="add_co2()" >增加</button>
-
-
-                    <div class="row" id="co2">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：1</h3><br>
-                                <h3 class="text-muted text-center"> 当前二氧化碳浓度：10</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：2</h3><br>
-                                <h3 class="text-muted text-center"> 当前二氧化碳浓度：10</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：3</h3><br>
-                                <h3 class="text-muted text-center"> 当前二氧化碳浓度：10</h3><br>
-                                <h3 class="text-muted text-center"style="color: lawngreen"> 传感器状态：运行中</h3><br>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="knob-container">
-
-                                <h3 class="text-muted text-center"> 传感器编号：4</h3><br>
-                                <h3 class="text-muted text-center"> 当前二氧化碳浓度：#</h3><br>
-                                <h3 class="text-muted text-center" style="color: red" > 传感器状态:未运行</h3>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-
         </div>
     </div>
 
@@ -325,6 +229,84 @@
         $("[rel=tooltip]").tooltip();
         $(function() {
             $('.demo-cancel-click').click(function(){return false;});
+        });
+
+    </script>
+    <script>
+        const vm = new Vue({
+            el: "table#temperature",
+            data: {
+                data:[
+                    {
+                        "id":"1",
+                        "code":"1",
+                        "temperature":"22",
+                        "stage":"1"
+                    },
+                    {
+                        "id":"2",
+                        "code":"2",
+                        "temperature":"23",
+                        "stage":"1"
+                    },
+                    {
+                        "id":"3",
+                        "code":"3",
+                        "temperature":"-",
+                        "stage":"0"
+                    }
+                    ]
+            }
+        });
+        const vm2 = new Vue({
+            el: "table#humidity",
+            data: {
+                data:[
+                    {
+                        "id":"1",
+                        "code":"1",
+                        "humidity":"50",
+                        "stage":"1"
+                    },
+                    {
+                        "id":"2",
+                        "code":"2",
+                        "humidity":"56",
+                        "stage":"1"
+                    },
+                    {
+                        "id":"3",
+                        "code":"3",
+                        "humidity":"-",
+                        "stage":"0"
+                    }
+                ]
+            }
+        });
+        const vm3 = new Vue({
+            el: "table#co2",
+            data: {
+                data:[
+                    {
+                        "id":"1",
+                        "code":"1",
+                        "co2":"50",
+                        "stage":"1"
+                    },
+                    {
+                        "id":"2",
+                        "code":"2",
+                        "co2":"56",
+                        "stage":"1"
+                    },
+                    {
+                        "id":"3",
+                        "code":"3",
+                        "co2":"-",
+                        "stage":"0"
+                    }
+                ]
+            }
         });
     </script>
 
@@ -437,88 +419,4 @@
                 }
 
             </script>
-<!--                               // setInterval(function() {-->
-<!--                //     option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;-->
-<!--                //     myChart2.setOption(option, true);-->
-<!--                // }, 2000);-->
-<!--                window.addEventListener("resize", function () {-->
-<!--                    myChart2.resize();-->
-<!--                    //myCharts是你的初始化echarts图表时取的名字-->
-<!--                });-->
-<!--                // var hrChart = echarts.init(document.getElementById("test"));-->
-<!--                // var y_data=[7,8,10,12,14,15,15,17,22,25,28,32,33,32,27,24,23,20,20,19,16,14,13,12]-->
-<!--                //-->
-<!--                //-->
-<!--                // hrChart.setOption(-->
-<!--                //     {-->
-<!--                //         color: ['#3398DB'],-->
-<!--                //         animationDuration:30,-->
-<!--                //         tooltip: {-->
-<!--                //             trigger: 'axis',-->
-<!--                //             duration:1000,-->
-<!--                //             axisPointer: { // 坐标轴指示器，坐标轴触发有效-->
-<!--                //                 type: 'line' // 默认为直线，可选为：'line' | 'shadow'-->
-<!--                //             }-->
-<!--                //         },-->
-<!--                //         visualMap: {-->
-<!--                //             show: true,-->
-<!--                //             dimension: 1,-->
-<!--                //             pieces: [-->
-<!--                //                 // (1500, Infinity]-->
-<!--                //                 {gt: 30, lte: 40,color:'red'},  // (900, 1500]-->
-<!--                //                 {gt: 20, lte: 30,color:'orange'},  // (310, 1000]-->
-<!--                //                 {gt: 10, lte: 20,color:'green'},   // (200, 300]-->
-<!--                //                 {gt: 0, lte: 10,color:'blue'},-->
-<!--                //             ],  //pieces的值由动态数据决定-->
-<!--                //             outOfRange: {-->
-<!--                //                 color: 'green'-->
-<!--                //             }-->
-<!--                //         },-->
-<!--                //         title: {-->
-<!--                //             text: '温度变换图',-->
-<!--                //             //left: '2%'-->
-<!--                //         },-->
-<!--                //-->
-<!--                //         xAxis: [{-->
-<!--                //             type: 'category',-->
-<!--                //             max:24,-->
-<!--                //             min:0,-->
-<!--                //             data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],-->
-<!--                //         }],-->
-<!--                //         yAxis: [{ // 纵轴标尺固定-->
-<!--                //             type: 'value',-->
-<!--                //             scale: true,-->
-<!--                //             name: 'temp',-->
-<!--                //             max: 40,-->
-<!--                //             min: 0,-->
-<!--                //             splitLine:false,-->
-<!--                //             // boundaryGap: [0.2, 0.2]-->
-<!--                //         }],-->
-<!--                //         series: [{-->
-<!--                //             itemStyle: {-->
-<!--                //                 normal: {-->
-<!--                //                     label: {-->
-<!--                //                         show: true, //开启显示-->
-<!--                //                         position: 'top', //在上方显示-->
-<!--                //                         textStyle: { //数值样式-->
-<!--                //                             color: 'orange',-->
-<!--                //                             fontSize: 16-->
-<!--                //                         }-->
-<!--                //                     }-->
-<!--                //                 }-->
-<!--                //             },-->
-<!--                //             symbol: "none",-->
-<!--                //             name: '温度',-->
-<!--                //             type: 'line',-->
-<!--                //             data:y_data,-->
-<!--                //-->
-<!--                //         },-->
-<!--                //         ]-->
-<!--                //     }, true);-->
 
-<!--            // </script>-->
-
-
-  
-</body>
-</html>
