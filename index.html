@@ -38,7 +38,7 @@
 
 
 </head>
-<body class=" theme-blue">
+<body class=" theme-blue" style="background: #0b0b0b">
 
     <!-- Demo page code -->
 
@@ -140,86 +140,44 @@
     </ul>
     </div>
 
-    <div class="content">
-        <div class="header">
+    <div class="content" style="background: linear-gradient(#0b0b4b,#0b0b0b)">
+        <div class="header" style="background: #00000000">
             <div class="stats"></div>
-            <h1 class="page-title">监控中心</h1>
+            <h1 class="page-title" style="color: white">监控中心</h1>
         </div>
         <div class="main-content">
-            <div style="font-size: 20px">温度监控</div>
-            <table id="temperature" style="width: 100%;font-size:16px;text-align: center;margin-bottom: 20px;margin-top: 20px">
-                <tr style="width: 100%;color: #666666;height: 35px;background: #ffeeee">
-                    <td style="border: 1px solid #00000022">传感器编号</td>
-                    <td style="border: 1px solid #00000022">当前空气温度</td>
-                    <td style="border: 1px solid #00000022">传感器状态</td>
-                </tr>
-                <tr v-for="(obj) in data" class="hoverTR" style="width: 100%;font-size:16px;color: #666666;height: 35px">
-                    <td v-text="obj.id" style="border: 1px solid #00000022;display: none"></td>
-                    <td v-text="obj.code" style="border: 1px solid #00000022;"></td>
-                    <td style="border: 1px solid #00000022">{{obj.temperature}} ℃</td>
-                    <td v-if="obj.stage==='1'" style="border: 1px solid #00000022;color: #2aaf67">运行中</td>
-                    <td v-else style="border: 1px solid #00000022;color: #f54349">未运行</td>
-                </tr>
-            </table>
-            <div style="font-size: 20px">湿度监控</div>
-
-            <table id="humidity" style="width: 100%;font-size:16px;text-align: center;margin-bottom: 20px;margin-top: 20px">
-                <tr style="width: 100%;color: #666666;height: 35px;background: #eeeeff">
-                    <td style="border: 1px solid #00000022">传感器编号</td>
-                    <td style="border: 1px solid #00000022">当前空气湿度</td>
-                    <td style="border: 1px solid #00000022">传感器状态</td>
-                </tr>
-                <tr v-for="(obj) in data" class="hoverTR" style="width: 100%;font-size:16px;color: #666666;height: 35px">
-                    <td v-text="obj.id" style="border: 1px solid #00000022;display: none"></td>
-                    <td v-text="obj.code" style="border: 1px solid #00000022;"></td>
-                    <td style="border: 1px solid #00000022"><div>{{obj.humidity}} %</div></td>
-                    <td v-if="obj.stage==='1'" style="border: 1px solid #00000022;color: #2aaf67">运行中</td>
-                    <td v-else style="border: 1px solid #00000022;color: #f54349">未运行</td>
-                </tr>
-            </table>
-            <div style="font-size: 20px">二氧化碳浓度监控</div>
-
-            <table id="co2" style="width: 100%;font-size:16px;text-align: center;margin-bottom: 20px;margin-top: 20px">
-                <tr style="width: 100%;color: #666666;height: 35px;background: #ffffee">
-                    <td style="border: 1px solid #00000022">传感器编号</td>
-                    <td style="border: 1px solid #00000022">二氧化碳浓度</td>
-                    <td style="border: 1px solid #00000022">传感器状态</td>
-                </tr>
-                <tr v-for="(obj) in data" class="hoverTR" style="width: 100%;font-size:16px;color: #666666;height: 35px">
-                    <td v-text="obj.id" style="border: 1px solid #00000022;display: none"></td>
-                    <td v-text="obj.code" style="border: 1px solid #00000022;"></td>
-                    <td style="border: 1px solid #00000022"><div>{{obj.co2}} ppm</div></td>
-                    <td v-if="obj.stage==='1'" style="border: 1px solid #00000022;color: #2aaf67">运行中</td>
-                    <td v-else style="border: 1px solid #00000022;color: #f54349">未运行</td>
-                </tr>
-            </table>
-    <div class="panel panel-default">
-        <a href="#page-stats" class="panel-heading" data-toggle="collapse">温度</a>
-        <div id="page-stats" class="panel-collapse panel-body collapse in">
-
-            <button onclick="add_temp()" >增加</button>
-        </div>
-    </div>
-            <div class="panel panel-default">
-                <a href="#page-stats1" class="panel-heading" data-toggle="collapse">湿度</a>
-                <div id="page-stats1" class="panel-collapse panel-body collapse in">
-
-                    <button onclick="add_humid()" >增加</button>
-                    </div>
+            <div style="font-size: 20px;color: #ffffff;">温度监控</div>
+            <button onclick="add_temp()">增加</button>
+            <div id = "temperature" >
+                <div v-for="(obj) in data" style="display:inline-block;width:250px;">
+                    <div class="temp-test" style="width: 250px;height: 250px;"></div>
+                    <div style="width: 250px;height: auto;text-align: center;color: #ffffff;">传感器编号：{{obj.code}}</div>
+                    <div v-if="obj.stage==='1'" style="width: 250px;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+                    <div v-else style="width: 250px;text-align: center;padding: 5px;color: #f54349">未运行</div>
                 </div>
             </div>
 
+            <div style="font-size: 20px;color: #ffffff;">湿度监控</div>
+            <button onclick="add_humid()" >增加</button>
+            <div id = "humidity" >
+                <div v-for="(obj) in data" style="display:inline-block;width:250px;">
+                    <div class="hum-test" style="width: 250px;height: 250px;"></div>
+                    <div style="width: 250px;height: auto;text-align: center;color: #ffffff;">传感器编号：{{obj.code}}</div>
+                    <div v-if="obj.stage==='1'" style="width: 250px;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+                    <div v-else style="width: 250px;text-align: center;padding: 5px;color: #f54349">未运行</div>
+                </div>
+            </div>
 
-            <hr>
-            <div class="panel panel-default">
-
-                <a href="#page-stats2" class="panel-heading" data-toggle="collapse">二氧化碳浓度</a>
-
-                <div id="page-stats2" class="panel-collapse panel-body collapse in">
-
-
-                    <button onclick="add_co2()" >增加</button>
-        </div>
+            <div style="font-size: 20px;color: #ffffff;">二氧化碳浓度监控</div>
+            <button onclick="add_co2()" >增加</button>
+            <div id = "co2" >
+                <div v-for="(obj) in data" style="display:inline-block;width:250px;">
+                    <div class="co2-test" style="width: 250px;height: 250px;"></div>
+                    <div style="width: 250px;height: auto;text-align: center;color: #ffffff;">传感器编号：{{obj.code}}</div>
+                    <div v-if="obj.stage==='1'" style="width: 250px;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+                    <div v-else style="width: 250px;text-align: center;padding: 5px;color: #f54349">未运行</div>
+                </div>
+            </div>
     </div>
 
 
@@ -233,190 +191,242 @@
 
     </script>
     <script>
-        const vm = new Vue({
-            el: "table#temperature",
+        vm = new Vue({
+            el:"#temperature",
             data: {
-                data:[
+                data: [
                     {
-                        "id":"1",
-                        "code":"1",
-                        "temperature":"22",
-                        "stage":"1"
+                        "id": "1",
+                        "code": "1",
+                        "value": "27",
+                        "stage": "1"
                     },
                     {
-                        "id":"2",
-                        "code":"2",
-                        "temperature":"23",
-                        "stage":"1"
+                        "id": "2",
+                        "code": "2",
+                        "value": "30",
+                        "stage": "1"
                     },
                     {
-                        "id":"3",
-                        "code":"3",
-                        "temperature":"-",
-                        "stage":"0"
+                        "id": "3",
+                        "code": "3",
+                        "value": null,
+                        "stage": "0"
                     }
-                    ]
+                ]
             }
         });
+
+        vm.$watch('data',function(val){
+            vm.$nextTick(function() {
+                showTemp();
+            });
+        });
+
         const vm2 = new Vue({
-            el: "table#humidity",
+            el: "#humidity",
             data: {
                 data:[
                     {
                         "id":"1",
                         "code":"1",
-                        "humidity":"50",
+                        "value":"50",
                         "stage":"1"
                     },
                     {
                         "id":"2",
                         "code":"2",
-                        "humidity":"56",
+                        "value":"56",
                         "stage":"1"
                     },
                     {
                         "id":"3",
                         "code":"3",
-                        "humidity":"-",
+                        "value":"-",
                         "stage":"0"
                     }
                 ]
             }
         });
+
+        vm2.$watch('data',function(val){
+            vm2.$nextTick(function() {
+                showHum();
+            });
+        });
+
         const vm3 = new Vue({
-            el: "table#co2",
+            el: "#co2",
             data: {
                 data:[
                     {
                         "id":"1",
                         "code":"1",
-                        "co2":"50",
+                        "value":"50",
                         "stage":"1"
                     },
                     {
                         "id":"2",
                         "code":"2",
-                        "co2":"56",
+                        "value":"56",
                         "stage":"1"
                     },
                     {
                         "id":"3",
                         "code":"3",
-                        "co2":"-",
+                        "value":"-",
                         "stage":"0"
                     }
                 ]
             }
         });
-    </script>
+        vm3.$watch('data',function(val){
+            vm3.$nextTick(function() {
+                showCo2();
+            });
+        });
+        function add_temp() {
+            vm.data.push({
+                "id":"-",
+                "code":"-",
+                "value":"-",
+                "stage":"0"
+            });
+        }
 
-            <script >
-                //var detail_div = 1;
-                function add_temp() {
-                    var word=prompt("请输入传感器编号");
-                    if(word){
-                        var e = document.getElementById("temp");
-                        var div = document.createElement("div");
-                        div.className = "col-md-3 col-sm-6";
-                        var v1=document.createElement("h3");
-                        v1.className="text-muted text-center"
-                        v1.textContent="传感器编号："+word
-                        var br=document.createElement('br');
+        function add_humid() {
+            vm2.data.push({
+                "id":"-",
+                "code":"-",
+                "value":"-",
+                "stage":"0"
+            });
+        }
 
-                        var v2=document.createElement("h3");
-                        v2.className="text-muted text-center";
+        function add_co2() {
+            vm3.data.push({
+                "id":"-",
+                "code":"-",
+                "value":"-",
+                "stage":"0"
+            });
+        }
+        showTemp();
+        showHum();
+        showCo2();
 
-                        v2.textContent="当前温度：25℃"
-                        var v3=document.createElement("h3");
-                        v3.className="text-muted text-center"
-                        v3.textContent="传感器状态：工作中";
-                        v3.style.color='lawngreen'
+        function showTemp() {
+            const x = document.getElementsByClassName("temp-test");
+            for (let i = 0; i < x.length; i++) {
+                const myChart = echarts.init(x[i]);
+                let option;
+                option = {
+                    tooltip: {
+                        formatter: '{a} <br/>{b} : {c}%'
+                    },
+                    series: [
+                        {
+                            name: '温度',
+                            type: 'gauge',
+                            min:0,
+                            max:40,
+                            detail: {fontSize: 20, formatter: '{value}℃'},
+                            data: [{value: vm.data[i].value, name: ''}],
+                            axisLine:{
+                                lineStyle:{
+                                    color:[[0.1, '#49c3f0'],[0.2, '#59b7e0'],
+                                        [0.3, '#6ca9cc'],[0.4, '#8299b8'],
+                                        [0.5, '#9c88a0'],[0.6, '#b47688'],
+                                        [0.7, '#ca6672'],[0.8, '#de575f'],
+                                        [0.9, '#ef4c4f'],[1.0, '#fb4243']]
 
-
-                        // div.id = "details" + detail_div;
-                        // div.innerHTML = e.innerHTML;
-                        // document.getElementById("temp").appendChild(div);
-
-                        div.appendChild(v1);
-                        div.appendChild(document.createElement('br'))
-                        div.appendChild(v2);
-                        div.appendChild(document.createElement('br'))
-                        div.appendChild(v3);
-                        e.appendChild(div);
-                    }else {
-                        alert("输入值为空")
-                    }
-
-                    //detail_div++;
+                                }
+                            }
+                        }
+                    ]
+                };
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
                 }
+            }
+        }
+        function showHum() {
+            const x = document.getElementsByClassName("hum-test");
+            for (let i = 0; i < x.length; i++) {
+                const myChart = echarts.init(x[i]);
+                let option;
+                option = {
+                    tooltip: {
+                        formatter: '{a} <br/>{b} : {c}%'
+                    },
+                    series: [
+                        {
+                            name: '温度',
+                            type: 'gauge',
+                            min:0,
+                            max:100,
+                            detail: {fontSize: 20, formatter: '{value}%'},
+                            data: [{value: vm2.data[i].value, name: ''}],
+                            axisLine:{
+                                lineStyle:{
+                                    color:[[0.1, '#b4fdfb'],[0.2, '#abf2fb'],
+                                        [0.3, '#9ee4fb'],[0.4, '#8fd2fc'],
+                                        [0.5, '#7fbefc'],[0.6, '#6da9fd'],
+                                        [0.7, '#6da9fd'],[0.8, '#5b93fe'],
+                                        [0.9, '#4a80fd'],[1.0, '#2f5ffe']]
 
-
-                function add_humid() {
-                    var word=prompt("请输入传感器编号");
-                    if(word){
-                        var e = document.getElementById("humid");
-                        var div = document.createElement("div");
-                        div.className = "col-md-3 col-sm-6";
-                        var v1=document.createElement("h3");
-                        v1.className="text-muted text-center"
-                        v1.textContent="传感器编号："+word
-                        var br=document.createElement('br');
-
-                        var v2=document.createElement("h3");
-                        v2.className="text-muted text-center";
-
-                        v2.textContent="当前湿度：25℃"
-                        var v3=document.createElement("h3");
-                        v3.className="text-muted text-center"
-                        v3.textContent="传感器状态：工作中";
-                        v3.style.color='lawngreen'
-                        div.appendChild(v1);
-                        div.appendChild(document.createElement('br'))
-                        div.appendChild(v2);
-                        div.appendChild(document.createElement('br'))
-                        div.appendChild(v3);
-                        e.appendChild(div);
-                    }else {
-                        alert("输入值为空")
-                    }
-
-                    //detail_div++;
+                                }
+                            }
+                        }
+                    ]
+                };
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
                 }
-
-
-
-
-                function add_co2() {
-                    var word=prompt("请输入传感器编号");
-                    if(word){
-                        var e = document.getElementById("co2");
-                        var div = document.createElement("div");
-                        div.className = "col-md-3 col-sm-6";
-                        var v1=document.createElement("h3");
-                        v1.className="text-muted text-center"
-                        v1.textContent="传感器编号："+word
-                        var br=document.createElement('br');
-
-                        var v2=document.createElement("h3");
-                        v2.className="text-muted text-center";
-
-                        v2.textContent="当前二氧化碳浓度：25℃"
-                        var v3=document.createElement("h3");
-                        v3.className="text-muted text-center"
-                        v3.textContent="传感器状态：工作中";
-                        v3.style.color='lawngreen'
-                        div.appendChild(v1);
-                        div.appendChild(document.createElement('br'))
-                        div.appendChild(v2);
-                        div.appendChild(document.createElement('br'))
-                        div.appendChild(v3);
-                        e.appendChild(div);
-                    }else {
-                        alert("输入值为空")
-                    }
-
-                    //detail_div++;
+            }
+        }
+        function showCo2() {
+            const x = document.getElementsByClassName("co2-test");
+            for (let i = 0; i < x.length; i++) {
+                const myChart = echarts.init(x[i]);
+                let option;
+                option = {
+                    tooltip: {
+                        formatter: '{a} <br/>{b} : {c}%'
+                    },
+                    series: [
+                        {
+                            name: '温度',
+                            type: 'gauge',
+                            min:0,
+                            max:100,
+                            detail: {fontSize: 20, formatter: '{value}ppm'},
+                            data: [{value: vm3.data[i].value, name: ''}],
+                            axisLine:{
+                                lineStyle:{
+                                    color:[
+                                        [0.1, '#fff09f'],[0.2, '#f8ea9e'],
+                                        [0.3, '#ede19b'],[0.4, '#dfd498'],
+                                        [0.5, '#d1c895'],[0.6, '#c1bb91'],
+                                        [0.7, '#b2ac8d'],[0.8, '#a39f8b'],
+                                        [0.9, '#969488'],[1.0, '#8c8a85']]
+                                }
+                            }
+                        }
+                    ]
+                };
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
                 }
+            }
+        }
 
-            </script>
 
+
+            setInterval(function () {
+                //option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
+                //myChart.setOption(option, true);
+            },2000);
+
+
+        </script>
