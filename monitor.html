@@ -91,7 +91,7 @@
 
     vm.$watch('data',function(val){
         vm.$nextTick(function() {
-            showTemp();
+            update();
         });
     });
 
@@ -117,7 +117,7 @@
 
     vm2.$watch('data',function(val){
         vm2.$nextTick(function() {
-            showHum();
+            update();
         });
     });
 
@@ -148,7 +148,7 @@
     });
     vm3.$watch('data',function(val){
         vm3.$nextTick(function() {
-            showCo2();
+            update();
         });
     });
     function add_temp() {
