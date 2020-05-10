@@ -167,7 +167,7 @@
 
     vm.$watch('data',function(val){
         vm.$nextTick(function() {
-            update();
+            update(0);
         });
     });
 
@@ -195,7 +195,7 @@
 
     vm2.$watch('data',function(val){
         vm2.$nextTick(function() {
-            update();
+            update(0);
         });
     });
 
@@ -222,7 +222,7 @@
     });
     vm3.$watch('data',function(val){
         vm3.$nextTick(function() {
-            update();
+            update(0);
         });
     });
     function add_temp() {
