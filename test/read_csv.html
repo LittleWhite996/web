@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link src>
+</head>
+<body>
+<div id="text"></div>
+<script>
+    fso=new ActiveXObject("Scripting.FileSystemObject");
+    var f=fso.OpenTextFile("C:\\Users\\sickb\\Desktop\\data.csv"); //这里必须为绝对路径
+    var str="";
+    while(!f.AtEndOfStream){
+        var temp=f.ReadLine().split(); //读取一行数据并按空格分割
+        for(i=0;i<temp.length;i++){
+            str+=temp[i]+"&nbsp;";
+        }
+        str+="<br>";
+    }
+    document.getElementById("text").innerHTML=str;
+</script>
+
+
+
+</body>
+</html>

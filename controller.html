@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>崇州高铁站候车大厅环境舒适度智能控制系统</title>
+
+	<script src="js/echarts.min.js"></script>
+	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script src="lib/vue.js" type="text/javascript"></script>
+	<script src="data/THC.js"></script>
+	<script src="static/js/active.js"></script>
+	<script src="static/js/jquery-2.2.4.min.js"></script>
+	<script src="static/js/jquery.SlidingBlock.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="css/le.css">
+	<link rel="icon" href="static/img/icon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+	<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+	<link rel="stylesheet" href="static/css/main.css">
+</head>
+
+<body>
+	<div class="nav">
+		<div id="div1">
+			<header>
+				<div class="container">
+					<div  class="row">
+						<div class="logo-column">
+							<a class="logo">
+								<img src="static/img/logo.jpg" >
+							</a>
+							<div class="p-title">崇州高铁站候车大厅环境舒适度智能控制系统</div>
+						</div>
+
+					</div>
+				</div>
+			</header>
+			<div id="div3">
+				<div class=" nav-column clearfix">
+					<nav id="menu">
+						<ul>
+							<li class="current-menu-item"><a href="portfolio.html">车站介绍</a></li>
+							<li class="current-menu-item"><a href="portfolio.html">联系我们</a></li>
+							<li class="current-menu-item">
+								<a>关于</a>
+							</li>
+							<li class="current-menu-item has-child">
+								<a>登录</a>
+								<ul class="sub-menu">
+									<li><a href="">登录</a></li>
+									<li><a href="">用户信息</a></li>
+									<li><a href="">退出登录</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<div id="div2">
+			<nav id="flexmenu">
+				<div class="nav-inner">
+					<ul id="menu-main-menu"  class="main-menu">
+						<li class="menu-item">
+							<a href="index.html">系统首页</a>
+						</li>
+						<li  class="menu-item">
+							<a href="about.html">模拟演示</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">参数设置</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">环境监测</a>
+						</li>
+						<li class="menu-item current-menu-item active">
+							<a href="contact.html">空调控制</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">数据管理</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">算法演示</a>
+						</li>
+						<div id="datetime" style="color:#FFFFFF;position:absolute;top:10px;left:76%;width:200px;font-size:16px">
+							<p style="color:#FFFFFF">
+								<script>setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+								</script>
+							</p>
+						</div>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div style="background: linear-gradient(#000000,#0b0b4b);width: 100%;padding:2%">
+		<div style="color: white;font-size: 22px;margin: 20px;display: inline-block;">空调及热交换机设定</div>
+		<div class="switch" style="display:inline-block;vertical-align: middle">
+			<input id="model-switch" class="cmn-toggle cmn-toggle-round" type="checkbox" onchange="updateModel(this)" checked>
+			<label for="model-switch"></label>
+		</div>
+		<div id="model-text" style="color: white;display: inline-block">智能模式</div>
+
+		<div style="width: 100%">
+			<div style="vertical-align:top;display:inline-block;color:#00bff3;width:60%;padding:10px;">
+				<div style="background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;">
+					<table id="t1" style="width: 90%;margin-left: 5%;text-align: center">
+						<tr>
+							<td style="width: 10%">多联机</td>
+							<td style="width: 25%">工作状态</td>
+							<td style="width: 30%">温度(摄氏度)</td>
+							<td style="width: 30%">风速(m/s)</td>
+						<tr>
+						<tr v-for="(obj,i) in multi" style="height: 40px":title="obj.address">
+							<td style="display: none">{{obj.id}}</td>
+							<td style="width: 10%"  ondblclick="showPop(this,'multi')" >{{obj.name}}</td>
+							<td style="width: 25%">
+								<select style="display: inline-block;border-radius: 10px;background: #00000000;color:#00bff3;">
+									<option v-if="obj.stage==='制冷'" value="制冷" selected style="background: #0b0b4b">制冷</option>
+									<option v-else value="制冷" style="background: #0b0b4b">制冷</option>
+
+									<option v-if="obj.stage==='制热'" value="制热" selected style="background: #0b0b4b">制热</option>
+									<option v-else value="制热" style="background: #0b0b4b">制热</option>
+
+									<option v-if="obj.stage==='通风'" value="通风" selected style="background: #0b0b4b">通风</option>
+									<option v-else value="通风" style="background: #0b0b4b">通风</option>
+
+									<option v-if="obj.stage==='除湿'" value="除湿" selected style="background: #0b0b4b">除湿</option>
+									<option v-else value="除湿" style="background: #0b0b4b">除湿</option>
+
+									<option v-if="obj.stage==='关机'" value="关机" selected style="background: #0b0b4b">关机</option>
+									<option v-else value="关机" style="background: #0b0b4b">关机</option>
+
+
+								</select>
+							</td>
+							<td style="width: 30%">
+								<label>
+									<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="obj.temp">
+								</label>
+							</td>
+							<td style="width: 30%">
+								<label>
+									<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="obj.windy">
+								</label>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+				<div style="margin-top:30px;padding:20px;width: auto;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;" ondblclick="showLine()">
+					<div>空调及热交换机当日已耗电量</div>
+					<div style="font-size: 20px;">145kw·h</div>
+
+				</div>
+
+			</div>
+			<div style="vertical-align:top;display:inline-block;color:#00bff3;width:35%;margin-left:3%;padding:20px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;;">
+				<table style="width: 90%;margin-left: 5%" id="t2">
+
+					<tr v-for="(obj,i) in hub" style="height: 40px" :title="obj.address">
+						<td style="display: none">{{obj.id}}</td>
+						<td style="width: 20%" ondblclick="showPop(this,'hub')" >{{obj.name}}</td>
+						<td style="width: 20%">
+							<div style="display: inline-block;">{{obj.stage}}</div>
+							<div class="switch" style="display: inline-block;vertical-align: middle">
+								<input :id="obj.id" class="cmn-toggle cmn-toggle-round" type="checkbox" style="height: 25px">
+								<label :for="obj.id"></label>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div id="bg" onclick="closePop()"></div>
+	<div class="box" style="z-index:1000;width: 30%;text-align: center;position:fixed;display: none;background:linear-gradient(#0b0b4b,#0b0b0b);padding: 20px;border-radius: 30px">
+		<table style="color: #00bff3;width: 100%;text-align: center" id="t3">
+			<tr>
+				<td colspan="2" style="font-size: 20px;height: 50px;">{{obj.name}}</td>
+			</tr>
+			<tr>
+				<td colspan="2"><img src="static/img/A口.jpg" alt="address" style="width: 300px;"></td>
+			</tr>
+			<tr style="height: 40px">
+				<td>品牌:</td>
+				<td>{{obj.brand}}</td>
+			</tr>
+			<tr style="height: 40px">
+				<td>型号:</td>
+				<td>{{obj.type}}</td>
+			</tr>
+			<tr style="height: 40px">
+				<td>工况:</td>
+				<td>{{obj.parameter}}</td>
+			</tr>
+			<tr style="height: 40px">
+				<td>位置:</td>
+				<td>{{obj.address}}</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="box2" style="z-index:1000;width: 30%;text-align: center;position:fixed;display: none;background:linear-gradient(#0b0b4b,#0b0b0b);padding: 20px;border-radius: 30px">
+		<div style="font-size: 20px;height: 50px;color: #00bff3">当日空调及热交换机当日已耗电量
+		</div>
+		<div id="e-line" style="width: 350px;height: 250px"></div>
+	</div>
+
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+	hub0=[
+		{
+			id:'1',
+			name:'热交换机1',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'2',
+			name:'热交换机2',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'3',
+			name:'热交换机3',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'4',
+			name:'热交换机4',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'5',
+			name:'热交换机5',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'6',
+			name:'热交换机6',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'7',
+			name:'热交换机7',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		},{
+			id:'8',
+			name:'热交换机8',
+			stage:'运行中',
+			brand:'格力',
+			type:'TC-520',
+			parameter:'450V 1000mA 5',
+			address:'A口'
+		}
+	]
+
+	multi0=[
+			{
+				id:'1',
+				name:"多联机1",
+				stage:"制冷",
+				temp:25,
+				windy:34,
+				brand:'奥克斯',
+				type:'AUX-1130',
+				parameter:'250V 1200mA T',
+				address:'A口'
+			},{
+			id:'2',
+			name:"多联机2",
+			stage:"制冷",
+			temp:25,
+			windy:34,
+			brand:'奥克斯',
+			type:'AUX-1130',
+			parameter:'250V 1200mA T',
+			address:'A口'
+		},{
+			id:'3',
+			name:"多联机3",
+			stage:"制热",
+			temp:25,
+			windy:34,
+			brand:'奥克斯',
+			type:'AUX-1130',
+			parameter:'250V 1200mA T',
+			address:'A口'
+		},{
+			id:'4',
+			name:"多联机4",
+			stage:"除湿",
+			temp:25,
+			windy:34,
+			brand:'奥克斯',
+			type:'AUX-1130',
+			parameter:'250V 1200mA T',
+			address:'A口'
+		},{
+			id:'5',
+			name:"多联机5",
+			stage:"关机",
+			temp:25,
+			windy:34,
+			brand:'奥克斯',
+			type:'AUX-1130',
+			parameter:'250V 1200mA T',
+			address:'A口'
+		},
+	];
+
+	vm1 = new Vue({
+		el:"#t1",
+		data:{
+			multi:multi0
+		}
+	})
+
+	vm2 = new Vue({
+		el:"#t2",
+		data:{
+			hub:hub0
+		}
+	})
+
+	vm3 = new Vue({
+		el:"#t3",
+		data:{
+			obj:{
+
+			}
+		}
+	})
+
+	function showPop(obj,type){
+		const id = $(obj).prev().text();
+		if(type==='hub'){
+			for(let i=0;i<vm2.hub.length;i++)
+				if(vm2.hub[i].id===id)
+					vm3.obj = vm2.hub[i];
+		}
+		else{
+			for(let i=0;i<vm1.multi.length;i++)
+				if(vm1.multi[i].id===id)
+					vm3.obj = vm1.multi[i];
+		}
+
+
+		$("#bg").css({
+			display: "block",
+			height: "100%",
+			position: "fixed"
+		});
+		const $box = $('.box');
+		$box.css({
+			left: ($("body").width() - $box.width()) / 2 + "px",
+			top: ($(window).height() - $box.height()) / 2 + "px",
+			display: "block"
+		});
+	}
+
+	function showLine(){
+		$("#bg").css({
+			display: "block",
+			height: "100%",
+			position: "fixed"
+		});
+		const $box2 = $('.box2');
+		$box2.css({
+			left: ($("body").width() - $box2.width()) / 2 + "px",
+			top: ($(window).height() - $box2.height()) / 2 + "px",
+			display: "block"
+		});
+
+		const x = document.getElementById("e-line");
+		let date = [];
+		let data = [];
+		for(let k=1;k<25;k++){
+			date.push(String(k));
+			data.push(Math.ceil(Math.random()*1000));
+		}
+		const myChart = echarts.init(x);
+		let option;
+		option = {
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: date,
+				axisLabel: {
+					show: true,
+					textStyle: {
+						color: '#00bff3',
+						fontSize: '12',
+					}
+				}
+			},
+			yAxis: {
+				type: 'value',
+				axisLabel: {
+					show: true,
+					textStyle: {
+						color: '#00bff3',
+						fontSize: '12',
+					}
+				}
+			},
+			series: [{
+				smooth: true,
+				data: data,
+				type: 'line',
+				//折线下填充渐变颜色
+				areaStyle: {
+					normal: {
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+									offset: 0, color: '#8c8a85'
+								}, {
+									offset: 0.5, color: 'blue'
+								}, {
+									offset: 1, color: '#00bff3'
+								}]
+						),
+					}
+				},
+				itemStyle: {
+					normal: {
+						lineStyle: {
+							width: 0,
+							type: 'none' //设置线条为虚线
+						}
+					}
+				}, symbol: "none"
+			}]
+		}
+		if (option && typeof option === "object") {
+			myChart.setOption(option, true);
+		}
+
+	}
+
+	function closePop() {
+		$('.box').css({
+			display: "none"
+		});
+		$('.box2').css({
+			display: "none"
+		});
+		$("#bg").css({
+			display: "none"
+		});
+	}
+
+	function updateModel(obj){
+		if(obj.checked){
+			vm1.multi = multi0;
+			vm2.hub = hub0;
+			$("#model-text").text("智能模式");
+			disable(true);
+
+		}else{
+			$("#model-text").text("人工模式");
+			disable(false);
+		}
+	}
+
+	disable(true);
+	function disable(flag){
+		$("input[type='number']").each(function () {
+			$(this).attr("disabled",flag);
+		});
+		$("input[type='checkbox']").each(function () {
+			if($(this).attr('id')!=='model-switch')
+				$(this).attr("disabled",flag);
+		});
+		$("select").each(function () {
+				$(this).attr("disabled",flag);
+		});
+	}
+</script>
+<script>
+	$(function () {
+		$('#nav_0').SlidingBlock();
+	});
+</script>
+
