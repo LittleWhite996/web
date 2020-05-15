@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>崇州高铁站候车大厅环境舒适度智能控制系统</title>
+
+	<script src="js/echarts.min.js"></script>
+	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script src="lib/vue.js" type="text/javascript"></script>
+	<script src="data/THC.js"></script>
+	<script src="static/js/active.js"></script>
+	<script src="static/js/jquery-2.2.4.min.js"></script>
+	<script src="static/js/jquery.SlidingBlock.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="icon" href="static/img/icon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+	<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+	<link rel="stylesheet" href="static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/le.css">
+
+</head>
+
+<body>
+	<div class="nav">
+		<div id="div1">
+			<header>
+				<div class="container">
+					<div  class="row">
+						<div class="logo-column">
+							<a class="logo">
+								<img src="static/img/logo.jpg" >
+							</a>
+							<div class="p-title">崇州高铁站候车大厅环境舒适度智能控制系统</div>
+						</div>
+
+					</div>
+				</div>
+			</header>
+			<div id="div3">
+				<div class=" nav-column clearfix">
+					<nav id="menu">
+						<ul>
+							<li class="current-menu-item"><a href="portfolio.html">车站介绍</a></li>
+							<li class="current-menu-item"><a href="portfolio.html">联系我们</a></li>
+							<li class="current-menu-item">
+								<a>关于</a>
+							</li>
+							<li class="current-menu-item has-child">
+								<a>登录</a>
+								<ul class="sub-menu">
+									<li><a href="">登录</a></li>
+									<li><a href="">用户信息</a></li>
+									<li><a href="">退出登录</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<div id="div2">
+			<nav id="flexmenu">
+				<div class="nav-inner">
+					<ul id="menu-main-menu"  class="main-menu">
+						<li class="menu-item">
+							<a href="index.html">系统首页</a>
+						</li>
+						<li  class="menu-item">
+							<a href="about.html">模拟演示</a>
+						</li>
+						<li class="menu-item current-menu-item active">
+							<a href="#">参数设置</a>
+						</li>
+						<li class="menu-item">
+							<a href="#">环境监测</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">空调控制</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">数据管理</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">算法演示</a>
+						</li>
+						<div id="datetime" style="color:#FFFFFF;position:absolute;top:10px;left:76%;width:200px;font-size:16px">
+							<p style="color:#FFFFFF">
+								<script>setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+								</script>
+							</p>
+						</div>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div style="background: linear-gradient(#000000,#0b0b4b);width: 100%;padding:2%">
+		<div style="color: white;font-size: 22px;margin: 20px;display: inline-block;">参数设置</div>
+		<div style="width: 100%">
+			<div style="vertical-align:top;display:inline-block;color:#00bff3;width:60%;padding:10px;">
+				<div style="padding:20px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;">
+					<div style="font-size: 20px">站点设置</div>
+					<table style="width: 100%" id="station">
+						<tr>
+							<td>站点名称</td>
+							<td colspan="3">
+								<label style="width:95%;">
+									<input type="text" style="width:100%;color:#00bff3;text-align:left;border-radius: 10px;background: #00bff322;" :value="name">
+								</label>
+							</td>
+						</tr>
+						<tr>
+							<td>多联机数量</td>
+							<td><label>
+								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numMulti">
+							</label></td>
+							<td>热交换机数量</td>
+							<td><label>
+								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numHub">
+							</label></td>
+						</tr>
+						<tr>
+							<td>候车大厅温度监测数量</td>
+							<td><label>
+								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numTemp">
+							</label></td>
+							<td>候车大厅湿度监测数量</td>
+							<td><label>
+								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numHum">
+							</label></td>
+						</tr>
+						<tr>
+							<td>候车大厅CO2浓度监测数量
+							</td>
+							<td><label>
+								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numCO2">
+							</label></td>
+						</tr>
+					</table>
+					<div style="text-align: right;margin-right: 30px">
+						<input type="button" value="提交" class="setup">
+					</div>
+				</div>
+				<div style="margin-top:30px;padding:20px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;">
+					<div style="font-size: 20px">数据设置</div>
+					历史保存年限<label>
+					<input type="number" value="2" style="margin-left:40px;color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;">
+				</label>
+					<div style="text-align: right;margin-right: 30px">
+						<input type="button" value="提交" class="setup">
+					</div>
+				</div>
+			</div>
+			<div style="vertical-align:top;display:inline-block;color:#00bff3;width:35%;margin-left:3%;">
+				<div style="background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;padding:20px;">
+					<div style="font-size: 20px">硬件设置</div>
+					<div><input type="button" value="编辑多联机信息" class="setup" style="width: 200px">
+						<input type="button" value="编辑热交换机信息" class="setup" style="width: 200px"></div>
+					<div><input type="button" value="编辑温度传感器信息" class="setup" style="width: 200px">
+						<input type="button" value="编辑湿度传感器信息" class="setup" style="width: 200px">
+						<input type="button" value="编辑CO2传感器信息" class="setup" style="width: 200px"></div>
+				</div>
+				<div style="margin-top:30px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;padding:20px;">
+					<div style="font-size: 20px">用户设置</div>
+					<div style="margin-top: 10px;margin-bottom: 10px">当前用户：zhangsan</div>
+					<div style="margin-top: 10px;margin-bottom: 10px">身份：超级管理员</div>
+
+					<div><input type="button" value="修改密码" class="setup" style="width: 200px">
+						<input type="button" value="编辑个人资料" class="setup" style="width: 200px"></div>
+					<div><input type="button" value="用户管理" class="setup" style="width: 200px"></div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div id="bg" onclick="closePop()"></div>
+	<div class="box" style="z-index:1000;width: 30%;text-align: center;position:fixed;display: none;background:linear-gradient(#0b0b4b,#0b0b0b);padding: 20px;border-radius: 30px">
+		<table style="color: #00bff3;width: 100%;text-align: center" id="t3">
+			<tr>
+				<td colspan="2" style="font-size: 20px;height: 50px;">{{obj.name}}</td>
+			</tr>
+			<tr>
+				<td colspan="2"><img src="static/img/A口.jpg" alt="address" style="width: 300px;"></td>
+			</tr>
+			<tr style="height: 40px">
+				<td>品牌:</td>
+				<td>{{obj.brand}}</td>
+			</tr>
+			<tr style="height: 40px">
+				<td>型号:</td>
+				<td>{{obj.type}}</td>
+			</tr>
+			<tr style="height: 40px">
+				<td>工况:</td>
+				<td>{{obj.parameter}}</td>
+			</tr>
+			<tr style="height: 40px">
+				<td>位置:</td>
+				<td>{{obj.address}}</td>
+			</tr>
+		</table>
+
+	</div>
+
+	<div class="box2" style="z-index:1000;width: 30%;text-align: center;position:fixed;display: none;background:linear-gradient(#0b0b4b,#0b0b0b);padding: 20px;border-radius: 30px">
+		<div style="font-size: 20px;height: 50px;color: #00bff3">当日空调及热交换机当日已耗电量
+		</div>
+		<div id="e-line" style="width: 350px;height: 250px"></div>
+	</div>
+
+</body>
+
+</html>
+<style>
+
+</style>
+
+<script type="text/javascript">
+
+
+	function showPop(obj,type){
+		const id = $(obj).prev().text();
+		if(type==='hub'){
+			for(let i=0;i<vm2.hub.length;i++)
+				if(vm2.hub[i].id===id)
+					vm3.obj = vm2.hub[i];
+		}
+		else{
+			for(let i=0;i<vm1.multi.length;i++)
+				if(vm1.multi[i].id===id)
+					vm3.obj = vm1.multi[i];
+		}
+
+
+		$("#bg").css({
+			display: "block",
+			height: "100%",
+			position: "fixed"
+		});
+		const $box = $('.box');
+		$box.css({
+			left: ($("body").width() - $box.width()) / 2 + "px",
+			top: ($(window).height() - $box.height()) / 2 + "px",
+			display: "block"
+		});
+	}
+
+
+
+	function closePop() {
+		$('.box').css({
+			display: "none"
+		});
+		$('.box2').css({
+			display: "none"
+		});
+		$("#bg").css({
+			display: "none"
+		});
+	}
+
+	vm = new Vue({
+		el:"#station",
+		data:{
+			name:"崇州高铁站",
+			numMulti:5,
+			numHub:8,
+			numTemp:5,
+			numHum:5,
+			numCO2:5
+		}
+	})
+
+</script>
+<script>
+	$(function () {
+		$('#nav_0').SlidingBlock();
+	});
+</script>
+

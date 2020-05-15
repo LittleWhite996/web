@@ -2,42 +2,6 @@
     background: #eeeeee;
 }
 
-.multi-on{
-    margin: 20px 10px 10px 0;
-    padding:5px;
-    color:white;
-    background: #4444ff;
-    border-radius: 5px;
-    border: none
-}
-
-.multi-off{
-    margin: 20px 10px 10px 0;
-    padding:5px;
-    color:white;
-    background: #88888888;
-    border-radius: 5px;
-    border: none
-}
-
-.recovery-on{
-    margin: 10px 10px 10px 0;
-    padding:5px;
-    color:white;
-    background: #44cc66;
-    border-radius: 5px;
-    border: none
-}
-
-.recovery-off{
-    margin: 10px 10px 10px 0;
-    padding:5px;
-    color:white;
-    background: #88888888;
-    border-radius: 5px;
-    border: none
-}
-
 .box{
     position: absolute;
     width: auto;
@@ -129,4 +93,25 @@ input.cmn-toggle-round:checked + label:before {
 }
 input.cmn-toggle-round:checked + label:after {
     margin-left: 20px;
+}
+
+input[type='button'].setup{
+    margin-top:10px;
+    border: 1px solid #00bff344;
+    padding:5px 10px;
+    color:#00bff3;
+    text-align:center;
+    border-radius: 10px;
+    background: #00bff322;
+}
+
+input[type='button'].setup:hover{
+    background: #00bff377;
+
+}
+input[type='number']{
+    border: none;
+}
+input[type='text']{
+    border: none;
 }
