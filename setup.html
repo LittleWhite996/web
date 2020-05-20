@@ -70,13 +70,13 @@
 							<a href="about.html">模拟演示</a>
 						</li>
 						<li class="menu-item current-menu-item active">
-							<a href="#">参数设置</a>
+							<a href="setup.html">参数设置</a>
 						</li>
 						<li class="menu-item">
-							<a href="#">环境监测</a>
+							<a href="monitor4.html">环境监测</a>
 						</li>
 						<li class="menu-item">
-							<a href="contact.html">空调控制</a>
+							<a href="controller.html">空调控制</a>
 						</li>
 						<li class="menu-item">
 							<a href="contact.html">数据管理</a>
@@ -95,46 +95,46 @@
 			</nav>
 		</div>
 	</div>
-	<div style="background: linear-gradient(#000000,#0b0b4b);width: 100%;padding:2%">
-		<div style="color: white;font-size: 22px;margin: 20px;display: inline-block;">参数设置</div>
+	<div style="width: 100%;padding:2%">
+		<div style="font-size: 25px;margin: 20px;display: inline-block;">参数设置</div>
 		<div style="width: 100%">
-			<div style="vertical-align:top;display:inline-block;color:#00bff3;width:60%;padding:10px;">
-				<div style="padding:20px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;">
-					<div style="font-size: 20px">站点设置</div>
+			<div style="vertical-align:top;display:inline-block;color:#0a6b8f;width:60%;padding:10px;">
+				<div style="padding:20px;border-radius: 40px;box-shadow: 0 0 3px 1px #0a6b8f;font-size: 16px">
+					<div style="font-size: 20px;height: 40px">站点设置</div>
 					<table style="width: 100%" id="station">
 						<tr>
 							<td>站点名称</td>
 							<td colspan="3">
 								<label style="width:95%;">
-									<input type="text" style="width:100%;color:#00bff3;text-align:left;border-radius: 10px;background: #00bff322;" :value="name">
+									<input type="text" style="padding-left:20px;background:#0a6b8f22;width:100%;color:#0a6b8f;text-align:left;border-radius: 10px;" :value="name">
 								</label>
 							</td>
 						</tr>
 						<tr>
 							<td>多联机数量</td>
-							<td><label>
-								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numMulti">
+							<td style="text-align: center"><label>
+								<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="numMulti">
 							</label></td>
 							<td>热交换机数量</td>
-							<td><label>
-								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numHub">
+							<td style="text-align: center"><label>
+								<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="numHub">
 							</label></td>
 						</tr>
 						<tr>
 							<td>候车大厅温度监测数量</td>
-							<td><label>
-								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numTemp">
+							<td style="text-align: center"><label>
+								<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="numTemp">
 							</label></td>
 							<td>候车大厅湿度监测数量</td>
-							<td><label>
-								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numHum">
+							<td style="text-align: center"><label>
+								<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="numHum">
 							</label></td>
 						</tr>
 						<tr>
 							<td>候车大厅CO2浓度监测数量
 							</td>
-							<td><label>
-								<input type="number" style="color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;" :value="numCO2">
+							<td style="text-align: center"><label>
+								<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="numCO2">
 							</label></td>
 						</tr>
 					</table>
@@ -142,26 +142,26 @@
 						<input type="button" value="提交" class="setup">
 					</div>
 				</div>
-				<div style="margin-top:30px;padding:20px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;">
-					<div style="font-size: 20px">数据设置</div>
+				<div style="margin-top:30px;padding:20px;border-radius: 40px;box-shadow: 0 0 3px 1px #0a6b8f;;font-size: 16px">
+					<div style="font-size: 20px;height: 40px">数据设置</div>
 					历史保存年限<label>
-					<input type="number" value="2" style="margin-left:40px;color:#00bff3;text-align:center;border-radius: 10px;background: #00bff322;">
+					<input type="number" value="2" style="width:60%;margin-left:40px;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;">
 				</label>
 					<div style="text-align: right;margin-right: 30px">
 						<input type="button" value="提交" class="setup">
 					</div>
 				</div>
 			</div>
-			<div style="vertical-align:top;display:inline-block;color:#00bff3;width:35%;margin-left:3%;">
-				<div style="background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;padding:20px;">
-					<div style="font-size: 20px">硬件设置</div>
+			<div style="vertical-align:top;display:inline-block;color:#0a6b8f;width:35%;margin-left:3%;font-size: 16px">
+				<div style="border-radius: 40px;box-shadow: 0 0 3px 1px #0a6b8f;padding:20px;">
+					<div style="font-size: 20px;height: 40px">硬件设置</div>
 					<div><input type="button" value="编辑多联机信息" class="setup" style="width: 200px">
 						<input type="button" value="编辑热交换机信息" class="setup" style="width: 200px"></div>
 					<div><input type="button" value="编辑温度传感器信息" class="setup" style="width: 200px">
 						<input type="button" value="编辑湿度传感器信息" class="setup" style="width: 200px">
 						<input type="button" value="编辑CO2传感器信息" class="setup" style="width: 200px"></div>
 				</div>
-				<div style="margin-top:30px;background: #44448844;border-radius: 40px;box-shadow: 0 0 3px 1px #00bff3;padding:20px;">
+				<div style="margin-top:30px;border-radius: 40px;box-shadow: 0 0 3px 1px #0a6b8f;padding:20px;font-size: 16px">
 					<div style="font-size: 20px">用户设置</div>
 					<div style="margin-top: 10px;margin-bottom: 10px">当前用户：zhangsan</div>
 					<div style="margin-top: 10px;margin-bottom: 10px">身份：超级管理员</div>
@@ -176,7 +176,7 @@
 	</div>
 	<div id="bg" onclick="closePop()"></div>
 	<div class="box" style="z-index:1000;width: 30%;text-align: center;position:fixed;display: none;background:linear-gradient(#0b0b4b,#0b0b0b);padding: 20px;border-radius: 30px">
-		<table style="color: #00bff3;width: 100%;text-align: center" id="t3">
+		<table style="color: #0a6b8f;width: 100%;text-align: center" id="t3">
 			<tr>
 				<td colspan="2" style="font-size: 20px;height: 50px;">{{obj.name}}</td>
 			</tr>
@@ -204,7 +204,7 @@
 	</div>
 
 	<div class="box2" style="z-index:1000;width: 30%;text-align: center;position:fixed;display: none;background:linear-gradient(#0b0b4b,#0b0b0b);padding: 20px;border-radius: 30px">
-		<div style="font-size: 20px;height: 50px;color: #00bff3">当日空调及热交换机当日已耗电量
+		<div style="font-size: 20px;height: 50px;color: #0a6b8f">当日空调及热交换机当日已耗电量
 		</div>
 		<div id="e-line" style="width: 350px;height: 250px"></div>
 	</div>

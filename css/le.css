@@ -97,16 +97,18 @@ input.cmn-toggle-round:checked + label:after {
 
 input[type='button'].setup{
     margin-top:10px;
-    border: 1px solid #00bff344;
+    font-size: 14px;
+    border: 1px solid #0a6b8f44;
     padding:5px 10px;
-    color:#00bff3;
+    color:#0a6b8f;
     text-align:center;
     border-radius: 10px;
-    background: #00bff322;
+    background: #0a6b8f22;
 }
 
 input[type='button'].setup:hover{
-    background: #00bff377;
+    color: white;
+    background: #0a6b8f77;
 
 }
 input[type='number']{
@@ -115,3 +117,7 @@ input[type='number']{
 input[type='text']{
     border: none;
 }
+
+#temperature-scroll::-webkit-scrollbar { width: 0 !important }
+#humidity-scroll::-webkit-scrollbar { width: 0 !important }
+#co2-scroll::-webkit-scrollbar { width: 0 !important }

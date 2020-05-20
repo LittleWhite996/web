@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>崇州高铁站候车大厅环境舒适度智能控制系统</title>
+
+	<script src="js/echarts.min.js"></script>
+	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script src="lib/vue.js" type="text/javascript"></script>
+	<script src="data/THC.js"></script>
+	<script src="static/js/active.js"></script>
+	<script src="static/js/jquery-2.2.4.min.js"></script>
+	<script src="static/js/jquery.SlidingBlock.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="icon" href="static/img/icon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+	<link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+	<link rel="stylesheet" href="static/css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/le.css">
+
+</head>
+
+<body>
+	<div class="nav">
+		<div id="div1">
+			<header>
+				<div class="container">
+					<div  class="row">
+						<div class="logo-column">
+							<a class="logo">
+								<img src="static/img/logo.jpg" >
+							</a>
+							<div class="p-title">崇州高铁站候车大厅环境舒适度智能控制系统</div>
+						</div>
+					</div>
+				</div>
+			</header>
+			<div id="div3">
+				<div class=" nav-column clearfix">
+					<nav id="menu">
+						<ul>
+							<li class="current-menu-item"><a href="portfolio.html">车站介绍</a></li>
+							<li class="current-menu-item"><a href="portfolio.html">联系我们</a></li>
+							<li class="current-menu-item">
+								<a>关于</a>
+							</li>
+							<li class="current-menu-item has-child">
+								<a>登录</a>
+								<ul class="sub-menu">
+									<li><a href="">登录</a></li>
+									<li><a href="">用户信息</a></li>
+									<li><a href="">退出登录</a></li>
+								</ul>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		<div id="div2">
+			<nav id="flexmenu">
+				<div class="nav-inner">
+					<ul id="menu-main-menu"  class="main-menu">
+						<li class="menu-item">
+							<a href="index.html">系统首页</a>
+						</li>
+						<li  class="menu-item">
+							<a href="about.html">模拟演示</a>
+						</li>
+						<li class="menu-item">
+							<a href="setup.html">参数设置</a>
+						</li>
+						<li class="menu-item current-menu-item active">
+							<a href="monitor4.html">环境监测</a>
+						</li>
+						<li class="menu-item">
+							<a href="controller.html">空调控制</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">数据管理</a>
+						</li>
+						<li class="menu-item">
+							<a href="contact.html">算法演示</a>
+						</li>
+						<div id="datetime" style="color: white;position:absolute;top:10px;left:76%;width:200px;font-size:16px">
+							<p style="">
+								<script>setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+								</script>
+							</p>
+						</div>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div style="width: 100%;">
+		<table style="width: 100%">
+			<tr>
+				<td style="width: 70%;vertical-align: top;padding:2%;border-right: 2px solid #dddddd" >
+					<div style="text-align: center;">
+						<div style="text-align: left;font-size: 25px;padding: 20px">候车大厅环境监测</div>
+						<div id="pmv" style="width: 100%;text-align: left;">
+							<div style="padding:20px;font-size: 16px;display: inline-block">当前旅客密度：{{density}}</div>
+							<div style="padding:20px;font-size: 16px;display: inline-block">PMV值：{{pmv}}</div>
+						</div>
+
+						<div style="width: 30%;float:left;margin: 1%">
+							<div id = "temperature" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+								<div style="font-size: 20px;display: inline-block;">温度监控</div>
+								<hr style="height: 1px;background: #0a6b8f22">
+								<div id="average-temp" style="font-size: 14px;">平均:{{avg}}℃</div>
+								<div id = "temperature-scroll" style="max-height:600px;overflow:scroll;text-align: center" >
+									<div v-for="(obj) in data" ondblclick="showPop(this,'温度监控')" style="width:90%;margin-top:15px;
+                        margin-bottom:15px;display:inline-block;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;" :title="obj.address">
+										<div style="width: 100%;height:auto;display: inline-block;">
+											<div style="width: 48%;height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">℃</span></div>
+											<div style="width: 48%;height:100%;display: inline-block;vertical-align: middle">
+												<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
+												<div>位置:{{obj.address}}</div>
+
+												<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+												<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<input type="button" onclick="add_temp()" class="setup" value="增加"/>
+
+							</div>
+						</div>
+						<div style="width: 30%;display: inline-block;margin: 1%">
+							<div id = "humidity" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+								<div style="font-size: 20px;display: inline-block">湿度监控</div>
+								<hr style="height: 1px;background: #0a6b8f22">
+								<div id="average-hum" style="font-size: 14px;">平均:{{avg}}%</div>
+								<div id="humidity-scroll" style="max-height:600px;overflow:scroll;text-align: center">
+									<div v-for="(obj) in data" ondblclick="showPop(this,'湿度监控')" style="margin-top:15px;
+                        margin-bottom:15px;display:inline-block;width:90%;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;" :title="obj.address">
+										<div style="width: 100%;height:auto;display: inline-block;">
+											<div style="width: 48%;height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">%</span></div>
+											<div style="width: 48%;height:100%;display: inline-block;vertical-align: middle">
+												<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
+												<div>位置:{{obj.address}}</div>
+
+												<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+												<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<input type="button" onclick="add_hum()" class="setup" value="增加"/>
+
+							</div>
+						</div>
+						<div style="width: 30%;float:right;margin: 1%">
+							<div id = "co2" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+								<div style="font-size: 20px;display: inline-block">二氧化碳浓度监控</div>
+								<hr style="height: 1px;background: #0a6b8f22">
+								<div id="average-co2" style="font-size: 14px;">平均:{{avg}}ppm</div>
+								<div id="co2-scroll" style="max-height:600px;overflow:scroll;text-align: center">
+									<div v-for="(obj) in data" ondblclick="showPop(this,'二氧化碳浓度监控')" style="margin-top:15px;
+                        margin-bottom:15px;display:inline-block;width:90%;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;" :title="obj.address">
+										<div style="width: 100%;height:auto;display: inline-block;">
+											<div style="width: 48%;height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">ppm</span></div>
+											<div style="width: 48%;height:100%;display: inline-block;vertical-align: middle">
+												<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
+												<div>位置:{{obj.address}}</div>
+												<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+												<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<input type="button" onclick="add_co2()" class="setup" value="增加"/>
+
+							</div>
+						</div>
+					</div>
+				</td>
+				<td style="width: 28%;padding:2%;vertical-align: top;border-left: 2px solid #0a6b8f;">
+					<div id="outdoor">
+						<div style="text-align: left;font-size: 25px;padding: 30px">室外环境监测</div>
+						<div style="color: white;text-align: left;font-size: 18px;padding-left: 30px;padding-right: 30px"></div>
+						<div style=";font-size:18px;line-height:40px;padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+							<div>天气情况:</div>
+							<div style="text-align: center">
+								<div style="width: 100%;font-size: 22px;color: #2a6496">{{weather}}</div>
+							</div>
+							<div>室外温度:</div>
+							<div style="text-align: center">
+								<div style="width: 100%;font-size: 22px;color: #2a6496">{{temp}}℃</div>
+							</div>
+							<div>室外湿度:</div>
+							<div style="text-align: center">
+								<div style="width: 100%;font-size: 22px;color: #2a6496">{{hum}}%</div>
+							</div>
+							<div >风速:</div>
+							<div style="text-align: center;">
+								<div style="width: 100%;font-size: 22px;color: #2a6496">{{windy}}</div>
+							</div>
+						</div>
+					</div>
+
+				</td>
+			</tr>
+		</table>
+		<div id="bg" onclick="closePop()"></div>
+		<div class="box" style="text-align: center;position:fixed;display: none;font-size:16px;padding: 20px;border-radius: 30px">
+			<p id="pop-type" style="font-size: 22px;"><b>温度监控</b></p>
+			<div style="margin: 20px;">选择日期：<label>
+				<input id="selectDate" type="datetime-local" onchange="update()"/>
+			</label></div>
+			<div id="pop-code">传感器编号</div>
+			<div id="pop-address">监测位置</div>
+			<div id="pop-stage" >运行中</div>
+			<div id="pop-line-temp" style="width: 300px;height:250px;display: none;" class="temp-line"></div>
+			<div id="pop-line-hum" style="width: 300px;height:250px;display: none;" class="hum-line"></div>
+			<div id="pop-line-co2" style="width: 300px;height:250px;display: none;" class="co2-line"></div>
+		</div>
+	</div>
+
+</body>
+
+</html>
+
+
+<script type="text/javascript">
+	vm_pmv = new Vue({
+		el:"#pmv",
+		data:{
+			density:"100",
+			pmv:"39"
+		}
+	});
+
+	vm_outdoor = new Vue({
+		el:"#outdoor",
+		data:{
+			weather:'多云',
+			temp:'24.5',
+			hum:'24.5',
+			windy:'北风三级'
+		}
+	})
+	vm = new Vue({
+		el:"#temperature",
+		data: {
+			data: [
+				{
+					"id": "1",
+					"code": "温度监测1",
+					"address":"1号车箱",
+					"value": "27",
+					"stage": "1"
+				},
+				{
+					"id": "2",
+					"code": "温度监测2",
+					"address":"2号车箱",
+					"value": "30",
+					"stage": "1"
+				},
+				{
+					"id": "3",
+					"code": "温度监测3",
+					"address":"3号车箱",
+					"value": "30",
+					"stage": "1"
+				},
+				{
+					"id": "4",
+					"code": "温度监测4",
+					"address":"4号车箱",
+					"value": "30",
+					"stage": "1"
+				},
+				{
+					"id": "5",
+					"code": "温度监测5",
+					"address":"5号车箱",
+					"value": "30",
+					"stage": "1"
+				},
+				{
+					"id": "6",
+					"code": "温度监测6",
+					"address":"6号车箱",
+					"value": "30",
+					"stage": "1"
+				},
+				{
+					"id": "7",
+					"code": "温度监测7",
+					"address":"7号车箱",
+					"value": "30",
+					"stage": "1"
+				},
+				{
+					"id": "8",
+					"code": "温度监测8",
+					"address":"8号车箱",
+					"value": "30",
+					"stage": "1"
+				}
+			],
+			avg:'-'
+		}
+	});
+
+	vm.$watch('data',function(val){
+		vm.$nextTick(function() {
+			update();
+		});
+	});
+
+	const vm2 = new Vue({
+		el: "#humidity",
+		data: {
+			data:[
+				{
+					"id":"1",
+					"code":"湿度监测1",
+					"address":"1号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"2",
+					"code":"湿度监测2",
+					"address":"2号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"3",
+					"code":"湿度监测3",
+					"address":"3号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"4",
+					"code":"湿度监测4",
+					"address":"4号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"5",
+					"code":"湿度监测5",
+					"address":"5号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"6",
+					"code":"湿度监测6",
+					"address":"6号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"7",
+					"code":"湿度监测7",
+					"address":"7号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"8",
+					"code":"湿度监测8",
+					"address":"8号车箱",
+					"value":"50",
+					"stage":"1"
+				}
+			],
+			avg:'-'
+		}
+	});
+
+	vm2.$watch('data',function(val){
+		vm2.$nextTick(function() {
+			update();
+		});
+	});
+
+	const vm3 = new Vue({
+		el: "#co2",
+		data: {
+			data:[
+				{
+					"id":"1",
+					"code":"CO2浓度监测1",
+					"address":"1号车箱",
+					"value":"50",
+					"stage":"1"
+				},
+				{
+					"id":"2",
+					"code":"CO2浓度监测2",
+					"address":"2号车箱",
+					"value":"56",
+					"stage":"1"
+				},
+				{
+					"id":"3",
+					"code":"CO2浓度监测3",
+					"address":"3号车箱",
+					"value":"56",
+					"stage":"1"
+				},
+				{
+					"id":"4",
+					"code":"CO2浓度监测4",
+					"address":"4号车箱",
+					"value":"56",
+					"stage":"1"
+				},
+				{
+					"id":"5",
+					"code":"CO2浓度监测5",
+					"address":"5号车箱",
+					"value":"56",
+					"stage":"1"
+				},
+				{
+					"id":"6",
+					"code":"CO2浓度监测6",
+					"address":"6号车箱",
+					"value":"56",
+					"stage":"1"
+				},
+				{
+					"id":"7",
+					"code":"CO2浓度监测7",
+					"address":"7号车箱",
+					"value":"56",
+					"stage":"1"
+				},
+				{
+					"id":"8",
+					"code":"CO2浓度监测8",
+					"address":"8号车箱",
+					"value":"56",
+					"stage":"1"
+				}
+			],
+			avg:'-'
+		}
+	});
+	vm3.$watch('data',function(val){
+		vm3.$nextTick(function() {
+			update();
+		});
+	});
+	function add_temp() {
+		vm.data.push({
+			"id":"-",
+			"code":"-",
+			"value":"-",
+			"stage":"0"
+		});
+	}
+
+	function add_hum() {
+		vm2.data.push({
+			"id":"-",
+			"code":"-",
+			"value":"-",
+			"stage":"0"
+		});
+	}
+
+	function add_co2() {
+		vm3.data.push({
+			"id":"-",
+			"code":"-",
+			"value":"-",
+			"stage":"0"
+		});
+	}
+
+	function showTempLine(data){
+		const x = document.getElementsByClassName("temp-line");
+		let date = [];
+		for(let k=1;k<25;k++)
+			date.push(String(k));
+		for (let i = 0; i < x.length; i++) {
+			const myChart = echarts.init(x[i]);
+			let option;
+			option = {
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: date,
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#0a6b8f',
+							fontSize:'12',
+						}
+					}
+				},
+				yAxis: {
+					type: 'value',
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#0a6b8f',
+							fontSize:'12',
+						}
+					}
+				},
+				series: [{
+					smooth: true,
+					data: data,
+					type: 'line',
+					//折线下填充渐变颜色
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+										offset: 0, color: '#fb4243'
+									}, {
+										offset: 0.5, color: '#9c88a0'
+									}, {
+										offset: 1, color: '#49c3f0'
+									}]
+							),
+						}
+					},
+					itemStyle:{
+						normal:{
+							lineStyle:{
+								width:0,
+								type:'none' //设置线条为虚线
+							}
+						}
+					},symbol: "none"
+				}]
+			}
+			if (option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+		}
+	}
+
+	function showHumLine(data){
+		x = document.getElementsByClassName("hum-line");
+		let date = [];
+		for(let k=1;k<25;k++)
+			date.push(String(k));
+		for (let i = 0; i < x.length; i++) {
+			const myChart = echarts.init(x[i]);
+			let option;
+			option = {
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: date,
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#0a6b8f',
+							fontSize:'12',
+						}
+					}
+				},
+				yAxis: {
+					type: 'value',
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#0a6b8f',
+							fontSize:'12',
+						}
+					}
+				},
+				series: [{
+					smooth: true,
+					data: data,
+					type: 'line',
+					//折线下填充渐变颜色
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+										offset: 0, color: '#2f5ffe'
+									}, {
+										offset: 0.5, color: '#7fbefc'
+									}, {
+										offset: 1, color: '#b4fdfb'
+									}]
+							),
+						}
+					},
+					itemStyle:{
+						normal:{
+							lineStyle:{
+								width:0,
+								type:'none' //设置线条为虚线
+							}
+						}
+					},symbol: "none"
+				}]
+			}
+			if (option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+		}
+	}
+
+	function showCo2Line(data){
+		x = document.getElementsByClassName("co2-line");
+		let date = [];
+		for(let k=1;k<25;k++)
+			date.push(String(k));
+		for (let i = 0; i < x.length; i++) {
+			const myChart = echarts.init(x[i]);
+			let option;
+			option = {
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					data: date,
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#0a6b8f',
+							fontSize: '12',
+						}
+					}
+				},
+				yAxis: {
+					type: 'value',
+					axisLabel: {
+						show: true,
+						textStyle: {
+							color: '#0a6b8f',
+							fontSize: '12',
+						}
+					}
+				},
+				series: [{
+					smooth: true,
+					data: data,
+					type: 'line',
+					//折线下填充渐变颜色
+					areaStyle: {
+						normal: {
+							color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+										offset: 0, color: '#8c8a85'
+									}, {
+										offset: 0.5, color: '#d1c895'
+									}, {
+										offset: 1, color: '#fff09f'
+									}]
+							),
+						}
+					},
+					itemStyle: {
+						normal: {
+							lineStyle: {
+								width: 0,
+								type: 'none' //设置线条为虚线
+							}
+						}
+					}, symbol: "none"
+				}]
+			}
+			if (option && typeof option === "object") {
+				myChart.setOption(option, true);
+			}
+		}
+	}
+	function update() {
+		let $date = $("#selectDate");
+		let month = $date.val().split("T")[0].split("-")[1];
+		let date = $date.val().split("T")[0].split("-")[2];
+		let hour = $date.val().split("T")[1].substr(0,2);
+		if(month[0]==='0')
+			month = month[1];
+		if(date[0]==='0')
+			date = date[1];
+		if(hour[0]==='0')
+			hour = hour[1];
+		let tempData = [];
+		let humData = [];
+		let co2Data = [];
+		for(let i=0;i<imitate_data.length;i++){
+			if(imitate_data[i][0].split("/")[0]===month
+					&&imitate_data[i][0].split("/")[1]===date
+					&&imitate_data[i][1]===hour){
+				vm_pmv.pmv = imitate_data[i][6];
+				let sum = 0;
+				let temp_temp = vm.data;
+				for(let i=0;i<temp_temp.length;i++){
+					temp_temp[i].value = parseFloat(imitate_data[i][3]).toFixed();
+					sum += parseFloat(temp_temp[i].value);
+				}
+				vm.data = temp_temp;
+				sum /= temp_temp.length;
+				vm.avg = sum;
+
+				let temp_hum = vm2.data;
+				sum = 0;
+				for(let i=0;i<temp_hum.length;i++){
+					temp_hum[i].value = parseFloat(imitate_data[i][4]).toFixed();
+					sum += parseFloat(temp_hum[i].value);
+				}
+				vm2.data = temp_hum;
+				sum /= temp_hum.length;
+				vm2.avg = sum;
+
+				let temp_co2 = vm3.data;
+				sum = 0;
+				for(let i=0;i<temp_co2.length;i++){
+					temp_co2[i].value = parseFloat(imitate_data[i][5]).toFixed();
+					sum += parseFloat(temp_co2[i].value);
+				}
+				vm3.data = temp_co2;
+				sum /= temp_co2.length;
+				vm3.avg = sum;
+
+				for(let k=24;k>0;k--){
+					if(i-k>=0){
+						tempData.push(parseFloat(imitate_data[i-k][3]));
+						humData.push(parseFloat(imitate_data[i-k][4]));
+						co2Data.push(parseFloat(imitate_data[i-k][5]));
+					}else{
+						tempData.push(0);
+						humData.push(0);
+						co2Data.push(0);
+					}
+
+				}
+			}
+		}
+		showTempLine(tempData);
+		showHumLine(humData);
+		showCo2Line(co2Data);
+	}
+
+
+	function showPop(obj,type){
+		let $monitor = $($($(obj).children().get(0)).children().get(1));
+		$("#pop-type").text(type);
+		$("#pop-code").text($($monitor.children().get(0)).text());
+		$("#pop-address").text($($monitor.children().get(1)).text());
+		const $stage = $("#pop-stage");
+		$stage.text($($monitor.children().get(2)).text());
+
+		if($stage.text()==="运行中")
+			$stage.css("color","#2aaf67");
+		else
+			$stage.css("color","#f54349");
+
+		const $tempLine = $("#pop-line-temp");
+		const $humLine = $("#pop-line-hum");
+		const $co2Line = $("#pop-line-co2");
+		switch (type) {
+			case "温度监控":
+				$tempLine.css("display","inline-block");
+				$humLine.css("display","none");
+				$co2Line.css("display","none");
+				break;
+			case "湿度监控":
+				$tempLine.css("display","none");
+				$humLine.css("display","inline-block");
+				$co2Line.css("display","none");
+				break;
+			case "二氧化碳浓度监控":
+				$tempLine.css("display","none");
+				$humLine.css("display","none");
+				$co2Line.css("display","inline-block");
+				break;
+			default:break;
+		}
+		$("#bg").css({
+			display: "block",
+			height: "100%",
+			position: "fixed"
+		});
+		const $box = $('.box');
+		$box.css({
+			left: ($("body").width() - $box.width()) / 2 + "px",
+			top: ($(window).height() - $box.height()) / 2 + "px",
+			display: "block"
+		});
+	}
+
+	function closePop() {
+		$('.box').css({
+			display: "none"
+		});
+		$("#bg").css({
+			display: "none"
+		});
+	}
+
+</script>
+<script>
+	$('#nav_0').SlidingBlock();
+
+	let imitate_data;
+	$.ajax({
+		dataType: 'text',
+		// url:"http://39.96.45.1:8008/flow/4",
+		url:"http://39.96.45.1:8008/0/2",
+		// url:"ws://www.non-nullptr.top:8888/",
+		async: false,
+		type: 'get',
+		scriptCharset: 'utf-8',
+		success:function(res){
+			imitate_data = eval(res);
+		},
+		error:function(err){
+			console.log("ERR");
+		}
+	});
+
+	$.ajax({
+		dataType: 'text',
+		url:"http://39.96.45.1:8008/flow/"+new Date().getHours(),
+		async: false,
+		type: 'get',
+		scriptCharset: 'utf-8',
+		success:function(res){
+			vm_pmv.density = res;
+		},
+		error:function(err){
+			console.log("ERR");
+		}
+	});
+
+	Date.prototype.format = function (fmt) {
+		var o = {
+			"M+": this.getMonth() + 1, //月份
+			"d+": this.getDate(), //日
+			"h+": this.getHours(), //小时
+			"m+": this.getMinutes(), //分
+			"s+": this.getSeconds(), //秒
+			"q+": Math.floor((this.getMonth() + 3) / 3), //季度
+			"S": this.getMilliseconds() //毫秒
+		};
+		if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o)
+			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		return fmt;
+	}
+
+	const day1 = new Date();
+	day1.setDate(day1.getDate());
+	const s1 = day1.format("yyyy-MM-ddThh:00:00");
+	$('#selectDate').val(s1);
+	update();
+
+</script>
+
+
