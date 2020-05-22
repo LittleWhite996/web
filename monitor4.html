@@ -23,7 +23,7 @@
 
 <body>
 	<div class="nav">
-		<div id="div1">
+		<div id="div1" style="width:100%">
 			<header>
 				<div class="container">
 					<div  class="row">
@@ -36,7 +36,7 @@
 					</div>
 				</div>
 			</header>
-			<div id="div3">
+			<div id="div3" style="width:100%">
 				<div class=" nav-column clearfix">
 					<nav id="menu">
 						<ul>
@@ -58,7 +58,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="div2">
+		<div id="div2" style="width:100%">
 			<nav id="flexmenu">
 				<div class="nav-inner">
 					<ul id="menu-main-menu"  class="main-menu">
@@ -686,16 +686,21 @@
 		let tempData = [];
 		let humData = [];
 		let co2Data = [];
+
 		for(let i=0;i<imitate_data.length;i++){
 			if(imitate_data[i][0].split("/")[0]===month
 					&&imitate_data[i][0].split("/")[1]===date
 					&&imitate_data[i][1]===hour){
 				vm_pmv.pmv = imitate_data[i][6];
+
 				let sum = 0;
 				let temp_temp = vm.data;
-				for(let i=0;i<temp_temp.length;i++){
-					temp_temp[i].value = parseFloat(imitate_data[i][3]).toFixed();
-					sum += parseFloat(temp_temp[i].value);
+
+				for(let k=0;k<temp_temp.length;k++){
+
+					temp_temp[k].value = parseFloat(imitate_data[i][3]).toFixed();
+
+					sum += parseFloat(temp_temp[k].value);
 				}
 				vm.data = temp_temp;
 				sum /= temp_temp.length;
@@ -703,9 +708,9 @@
 
 				let temp_hum = vm2.data;
 				sum = 0;
-				for(let i=0;i<temp_hum.length;i++){
-					temp_hum[i].value = parseFloat(imitate_data[i][4]).toFixed();
-					sum += parseFloat(temp_hum[i].value);
+				for(let k=0;k<temp_hum.length;k++){
+					temp_hum[k].value = parseFloat(imitate_data[i][4]).toFixed();
+					sum += parseFloat(temp_hum[k].value);
 				}
 				vm2.data = temp_hum;
 				sum /= temp_hum.length;
@@ -713,9 +718,9 @@
 
 				let temp_co2 = vm3.data;
 				sum = 0;
-				for(let i=0;i<temp_co2.length;i++){
-					temp_co2[i].value = parseFloat(imitate_data[i][5]).toFixed();
-					sum += parseFloat(temp_co2[i].value);
+				for(let k=0;k<temp_co2.length;k++){
+					temp_co2[k].value = parseFloat(imitate_data[i][5]).toFixed();
+					sum += parseFloat(temp_co2[k].value);
 				}
 				vm3.data = temp_co2;
 				sum /= temp_co2.length;
@@ -818,6 +823,7 @@
 		}
 	});
 
+
 	$.ajax({
 		dataType: 'text',
 		url:"http://39.96.45.1:8008/flow/"+new Date().getHours(),
@@ -832,6 +838,10 @@
 		}
 	});
 
+
+
+
+
 	Date.prototype.format = function (fmt) {
 		var o = {
 			"M+": this.getMonth() + 1, //月份
@@ -842,6 +852,7 @@
 			"q+": Math.floor((this.getMonth() + 3) / 3), //季度
 			"S": this.getMilliseconds() //毫秒
 		};
+
 		if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
 		for (var k in o)
 			if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
@@ -852,6 +863,7 @@
 	day1.setDate(day1.getDate());
 	const s1 = day1.format("yyyy-MM-ddThh:00:00");
 	$('#selectDate').val(s1);
+
 	update();
 
 </script>

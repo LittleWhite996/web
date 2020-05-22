@@ -57,7 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="div2">
+		<div id="div2"  style="width:100%">
 			<nav id="flexmenu">
 				<div class="nav-inner">
 					<ul id="menu-main-menu"  class="main-menu">
@@ -96,7 +96,7 @@
 	<div style="background: white;width: 100%;padding:2%">
 		<div style="font-size: 25px;margin: 20px;display: inline-block;">空调及热交换机设定</div>
 		<div class="switch" style="display:inline-block;vertical-align: middle">
-			<input id="model-switch" class="cmn-toggle cmn-toggle-round" type="checkbox" onchange="updateModel(this)">
+			<input id="model-switch" class="cmn-toggle cmn-toggle-round" type="checkbox" onchange="roll(this)">
 			<label for="model-switch"></label>
 		</div>
 		<div id="model-text" style="color: #14ace2;display: inline-block">人工模式(加载中)</div>
@@ -167,8 +167,9 @@
 						<td style="width: 20%">
 							<div style="display: inline-block;">{{obj.stage}}</div>
 							<div class="switch" style="display: inline-block;vertical-align: middle">
-								<input v-if="obj.stage==='未运行'" :id="obj.id" class="cmn-toggle cmn-toggle-round" type="checkbox" style="height: 25px" onchange="updateHubStage(this)">
-								<input v-else :id="obj.id" class="cmn-toggle cmn-toggle-round" type="checkbox" style="height: 25px" checked onchange="updateHubStage(this)">
+								<input v-if="obj.stage==='未运行'" :id="obj.id" class="cmn-toggle cmn-toggle-round" type="checkbox" style="height: 25px"  onchange="updateHubStage(this)">
+								<input v-else :id="obj.id" class="cmn-toggle cmn-toggle-round" type="checkbox" style="height: 25px"  checked onchange="updateHubStage(this)">
+<!--								//checked onchange="updateHubStage(this)-->
 								<label :for="obj.id"></label>
 							</div>
 						</td>
@@ -496,140 +497,318 @@
 		return fmt;
 	}
 
-	let n1=0,n2=0;
-	for(let i=0;i<vm1.multi.length;i++)
-		if(vm1.multi[i].stage!=="关机")
-			n1++;
-	for(let i=0;i<vm2.hub.length;i++)
-		if(vm2.hub[i].stage!=="未运行")
-			n2++;
+	let n1=0,n2=0,sumpow=0;
+    let tempn1=n1,tempn2=n2;
+
 
 	let imitate_data;
 	let flow;
+    let times=0;
+
+	let flowtimes=0;
+
+	for (let i = 0; i < vm1.multi.length; i++)
+		if (vm1.multi[i].stage !== "关机")
+			n1++;
+	for (let i = 0; i < vm2.hub.length; i++)
+		if (vm2.hub[i].stage !== "未运行")
+			n2++;
+	//
+    tempn1=n1;
+    tempn2=n2;
 
 	$.ajax({
 		dataType: 'text',
-		url:"http://39.96.45.1:8008/"+n1+"/"+n2,
+		async: false,
+		url: "http://39.96.45.1:8008/" + n1 + "/" + n2,
+
 		type: 'get',
 		scriptCharset: 'utf-8',
-		success:function(res) {
+		success: function (res) {
 			imitate_data = eval(res);
-			$("#model-text").text("人工模式");
+			// $("#model-text").text("人工模式");
+			//$("#model-text").text("调整中");
+			console.log(imitate_data);
 			const day1 = new Date();
 			day1.setDate(day1.getDate());
 			const s1 = day1.format("yyyy-MM-ddThh:00:00");
 			let month = s1.split("T")[0].split("-")[1];
 			let date = s1.split("T")[0].split("-")[2];
-			let hour = s1.split("T")[1].substr(0,2);
-			if(month[0]==='0')
+			let hour = s1.split("T")[1].substr(0, 2);
+			if (month[0] === '0')
 				month = month[1];
-			if(date[0]==='0')
+			if (date[0] === '0')
 				date = date[1];
-			if(hour[0]==='0')
+			if (hour[0] === '0')
 				hour = hour[1];
-			for(let i=0; i<imitate_data.length; i++)
-				if (imitate_data[i][0].split("/")[0] === month
-						&& imitate_data[i][0].split("/")[1] === date) {
-					if (parseInt(imitate_data[i][1]) <= parseInt(hour)){
-						let e = parseFloat(imitate_data[i][8]) + parseFloat(imitate_data[i][9]) +
-								parseFloat(imitate_data[i][10]) + parseFloat(imitate_data[i][11]);
-						e_data.push(e);
-						if(parseInt(imitate_data[i][1]) === parseInt(hour)){
-							$("#e-now").text(e.toFixed(3) +"Kw·h");
-							for(let j=0;j<vm1.multi.length;j++)
-								vm1.multi[j].temp = parseInt(imitate_data[i][3]);
-						}
-					}
-
-				}
+			// for (let i = 0; i < imitate_data.length; i++)
+			// 	if (imitate_data[i][0].split("/")[0] === month
+			// 			&& imitate_data[i][0].split("/")[1] === date) {
+			// 		if (parseInt(imitate_data[i][1]) <= parseInt(hour)) {
+			// 			let e = parseFloat(imitate_data[i][8]) + parseFloat(imitate_data[i][9]) +
+			// 					parseFloat(imitate_data[i][10]) + parseFloat(imitate_data[i][11]);
+			// 			e_data.push(e);
+			// 			if (parseInt(imitate_data[i][1]) === parseInt(hour)) {
+			// 				$("#e-now").text(e.toFixed(3) + "Kw·h");
+			// 				// for(let j=0;j<vm1.multi.length;j++)
+			// 				// 	vm1.multi[j].temp = parseInt(imitate_data[i][3]);
+			// 			}
+			// 		}
+			//
+			// 	}
 		},
-		error:function(err){
+
+
+		error: function (err) {
 			console.log("ERR");
 		}
 	});
 	$.ajax({
 		dataType: 'text',
-		url:"http://39.96.45.1:8008/flow/"+new Date().getHours(),
+		 async: false,
+		url: "http://39.96.45.1:8008/flow/" + new Date().getHours(),
 		type: 'get',
 		scriptCharset: 'utf-8',
-		success:function(res){
+		success: function (res) {
 			flow = res;
+			console.log(flow)
 		},
-		error:function(err){
+		error: function (err) {
 			console.log("ERR");
 		}
 	});
 
-	function updateModel(obj){
-		let req_msg;
-
-		if (obj.checked) {
-			vm1.multi = multi0;
-			vm2.hub = hub0;
-			$("#model-text").text("智能模式(计算中)");
-			disable(true);
-
-			const day1 = new Date();
-			day1.setDate(day1.getDate());
-			const s1 = day1.format("yyyy-MM-ddThh:00:00");
-			let month = s1.split("T")[0].split("-")[1];
-			let date = s1.split("T")[0].split("-")[2];
-			let hour = s1.split("T")[1].substr(0,2);
-			if(month[0]==='0')
-				month = month[1];
-			if(date[0]==='0')
-				date = date[1];
-			if(hour[0]==='0')
-				hour = hour[1];
-			for(let i=0; i<imitate_data.length; i++)
-				if (imitate_data[i][0].split("/")[0] === month
-						&& imitate_data[i][0].split("/")[1] === date
-						&&imitate_data[i][1] === hour) {
-					let data0 = [];
-					for (let i = 0; i < vm1.multi.length; i++) {
-						if (vm1.multi[i].stage !== "关机")
-							data0.push({
-								DryBulbTemp: imitate_data[i][2],
-								MeanTemp: imitate_data[i][3],
-								RelativeHumidity: imitate_data[i][4],
-								CO2: imitate_data[i][5],
-								PPD: imitate_data[i][7],
-								PassengerFlow: flow,
-								TotalPower: parseFloat(imitate_data[i][8]) + parseFloat(imitate_data[i][9]) +
-										parseFloat(imitate_data[i][10]) + parseFloat(imitate_data[i][11])
-							});
-					}
-					req_msg = {
-						data: data0
-					}
-					websocket.send(JSON.stringify(req_msg));
-					websocket.onmessage = function (event) {
-						console.log(event.data);
-						obj = JSON.parse(event.data);
-						if (obj.msg === "success") {
-							let n1 = parseInt(obj.data[0].NAir);
-							let n2 = parseInt(obj.data[0].NHeat);
-							for (let i = 0; i < obj.data.length; i++) {
-								vm1.multi[i].temp = obj.data[i].AirTempSetUp.toFixed();
-							}
-							for(let i = n1;i<vm1.multi.length;i++){
-								vm1.multi[i].stage = "关机";
-								vm1.multi[i].temp = 0;
-								vm1.multi[i].windy = 0;
-							}
-							for(let i = n2;i<vm2.hub.length;i++){
-								vm2.hub[i].stage = "未运行";
-							}
-						} else {
-							alert("调整失败！");
-						}
-					};
-				}
-			$("#model-text").text("智能模式");
-		} else {
-			$("#model-text").text("人工模式");
-			disable(false);
+    function roll(obj) {
+    	if(obj.checked) {
+			//console.log("sadsadsad")
+			setInterval(function () { updateModel(obj)},10000)
+		}else{
+			location.reload();
 		}
+	}
+
+	function updateModel(obj) {
+    	console.log("执行")
+        n1=0;
+        n2=0;
+
+		for (let i = 0; i < vm1.multi.length; i++)
+			if (vm1.multi[i].stage !== "关机")
+				n1++;
+		for (let i = 0; i < vm2.hub.length; i++)
+			if (vm2.hub[i].stage !== "未运行")
+				n2++;
+		//
+         if(n1==0&&n2==0){
+         	var a=confirm("空调已关闭,演示结束，点击确定恢复初始状态")
+			 if(a){
+				 location.reload();
+			 }
+			 obj.checked=false;
+         	return;
+		 }
+
+          if(n1==0){
+		 	n1=1;
+		 }
+
+		console.log("n1"+n1)
+		console.log("n2"+n2)
+		$.ajax({
+			dataType: 'text',
+			// async: false,
+			url: "http://39.96.45.1:8008/" + n1 + "/" + n2,
+
+			type: 'get',
+			scriptCharset: 'utf-8',
+			success: function (res) {
+				imitate_data = eval(res);
+				// $("#model-text").text("人工模式");
+				//$("#model-text").text("调整中");
+				console.log(imitate_data);
+				const day1 = new Date();
+				day1.setDate(day1.getDate());
+				const s1 = day1.format("yyyy-MM-ddThh:00:00");
+				let month = s1.split("T")[0].split("-")[1];
+				let date = s1.split("T")[0].split("-")[2];
+				let hour = s1.split("T")[1].substr(0, 2);
+				if (month[0] === '0')
+					month = month[1];
+				if (date[0] === '0')
+					date = date[1];
+				if (hour[0] === '0')
+					hour = hour[1];
+				for (let i = 0; i < imitate_data.length; i++)
+					if (imitate_data[i][0].split("/")[0] === month
+							&& imitate_data[i][0].split("/")[1] === date) {
+						if (parseInt(imitate_data[i][1]) == parseInt(hour)) {
+							let e = parseFloat(imitate_data[i][8]) + parseFloat(imitate_data[i][9]) +
+									parseFloat(imitate_data[i][10]) + parseFloat(imitate_data[i][11]);
+							// console.log(imitate_data[i][1])
+							// console.log("sum")
+							// console.log(sumpow)
+							// console.log("e")
+							// console.log(e)
+							sumpow+=e;
+							e_data.push(sumpow);
+							if (parseInt(imitate_data[i][1]) === parseInt(hour)) {
+								$("#e-now").text(sumpow.toFixed(3) + "Kw·h");
+								// for(let j=0;j<vm1.multi.length;j++)
+								// 	vm1.multi[j].temp = parseInt(imitate_data[i][3]);
+							}
+						}
+
+					}
+			},
+
+
+			error: function (err) {
+				console.log("ERR");
+			}
+		});
+
+         let flowa=new Date().getHours()+flowtimes;
+         if(flowa>18){
+         	flowtimes=0;
+		 }
+         flowtimes++;
+         console.log("flowa"+flowa)
+		$.ajax({
+			dataType: 'text',
+			 //async: false,
+			url: "http://39.96.45.1:8008/flow/" +flowa,
+			type: 'get',
+			scriptCharset: 'utf-8',
+			success: function (res) {
+				flow = res;
+				console.log(flow)
+			},
+			error: function (err) {
+				console.log("ERR");
+			}
+		});
+
+
+
+			let req_msg;
+			console.log(obj.checked)
+			if (obj.checked) {
+				vm1.multi = multi0;
+				vm2.hub = hub0;
+				$("#model-text").text("智能模式(计算中)");
+				disable(true);
+
+				const day1 = new Date();
+				day1.setDate(day1.getDate());
+				const s1 = day1.format("yyyy-MM-ddThh:00:00");
+				let month = s1.split("T")[0].split("-")[1];
+				let date = s1.split("T")[0].split("-")[2];
+				let hour = s1.split("T")[1].substr(0, 2);
+				if (month[0] === '0')
+					month = month[1];
+				if (date[0] === '0')
+				if (hour[0] === '0')
+					hour = hour[1];
+
+				for (let i = 0; i < imitate_data.length; i++)
+					if (imitate_data[i][0].split("/")[0] === month
+							&& imitate_data[i][0].split("/")[1] === date
+							&& imitate_data[i][1] === hour) {
+						let data0 = [];
+
+						//for (let l = 0; l < vm1.multi.length; l++) {
+							for (let l = 0; l < n1; l++) {
+							//if (vm1.multi[l].stage !== "关机")
+								data0.push({
+									DryBulbTemp: imitate_data[i+times][2],
+									MeanTemp: imitate_data[i+times][3],
+									RelativeHumidity: imitate_data[i+times][4],
+									CO2: imitate_data[i+times][5],
+									PPD: imitate_data[i+times][7],
+									PassengerFlow: flow,
+									TotalPower: parseFloat(imitate_data[i][8]) + parseFloat(imitate_data[i][9]) +
+											parseFloat(imitate_data[i][10]) + parseFloat(imitate_data[i][11])
+								});
+
+						}
+						times++;
+
+						req_msg = {
+							data: data0
+						}
+						console.log("m"+month)
+						console.log("d"+date)
+						console.log("h"+hour)
+						//console.log(times)
+						console.log(req_msg)
+						websocket.send(JSON.stringify(req_msg));
+						websocket.onmessage = function (event) {
+							console.log(event.data);
+							obj = JSON.parse(event.data);
+							if (obj.msg === "success") {
+								    if(!obj.data){
+								    	n1=n1;
+								    	n2=n2;
+								    	console.log("没有数据")
+									}else{
+										n1 = parseInt(obj.data[0].NAir);
+										n2 = parseInt(obj.data[0].NHeat);
+									}
+
+                                if(n1==0){
+                                	n1=1;
+								}
+                                if(n2==0){
+									n2=Math.ceil(Math.random()*8);
+								}
+								// alert(n1)
+								for (let i = 0; i < obj.data.length; i++) {
+									if(obj.data==null){
+										vm1.multi[i].temp=imitate_data[i][3].toFixed();
+									}
+									vm1.multi[i].temp = obj.data[0].AirTempSetUp.toFixed();
+								}
+								for (let i = 0; i < n1; i++) {
+									vm1.multi[i].stage = "制冷";
+									if(obj.data==null){
+										vm1.multi[i].temp = imitate_data[i][3].toFixed();
+									}
+									vm1.multi[i].temp = obj.data[0].AirTempSetUp.toFixed();
+									vm1.multi[i].windy = 0;
+								}
+								for (let i = n1; i < vm1.multi.length; i++) {
+									vm1.multi[i].stage = "关机";
+									vm1.multi[i].temp = 0;
+									vm1.multi[i].windy = 0;
+								}
+								for (let i = 0; i < n2; i++) {
+									vm2.hub[i].stage = "运行中";
+								}
+								for (let i = n2; i < vm2.hub.length; i++) {
+									vm2.hub[i].stage = "未运行";
+								}
+							} else {
+								alert("调整失败！");
+							}
+						};
+					}
+				$("#model-text").text("智能模式");
+			} else {
+				$("#model-text").text("人工模式");
+				disable(false);
+			}
+			// let tempHub = vm2.hub;
+			// for(let i=0;i<tempHub.length;i++){
+			// 	if(tempHub[i].id===obj.id){
+			// 		if(tempHub[i].stage==='运行中')
+			// 			tempHub[i].stage = '未运行';
+			// 		else
+			// 			tempHub[i].stage = '运行中';
+			// 	}
+			// }
+			// vm2.hub = tempHub;
+			//updateHubStage(this)
+            console.log("执行结束")
 	}
 
 	disable(false);
