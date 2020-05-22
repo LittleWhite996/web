@@ -110,7 +110,7 @@
 						<hr style="height: 1px;background: #0a6b8f22">
 						<div id="average-temp" style="font-size: 14px;text-align: left">平均:{{avg}}℃</div>
 						<div id = "temperature-scroll">
-							<div v-for="(obj) in data" ondblclick="showPop(this,'温度监控')" class="list" :title="obj.address">
+							<div v-for="(obj) in data" onclick="showPop(this,'温度监控')" class="list" :title="obj.address">
 								<div style="width: 100%;height:auto;">
 									<div style="height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">℃</span></div>
 									<div style="height:100%;display: inline-block;vertical-align: middle">
@@ -133,7 +133,7 @@
 						<hr style="height: 1px;background: #0a6b8f22">
 						<div id="average-hum" style="font-size: 14px;text-align: left">平均:{{avg}}%</div>
 						<div id="humidity-scroll">
-							<div v-for="(obj) in data" ondblclick="showPop(this,'湿度监控')" class="list" :title="obj.address">
+							<div v-for="(obj) in data" onclick="showPop(this,'湿度监控')" class="list" :title="obj.address">
 								<div style="width: 100%;height:auto;">
 									<div style="height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">%</span></div>
 									<div style="height:100%;display: inline-block;vertical-align: middle">
@@ -156,7 +156,7 @@
 						<hr style="height: 1px;background: #0a6b8f22">
 						<div id="average-co2" style="font-size: 14px;text-align: left">平均:{{avg}}ppm</div>
 						<div id="co2-scroll">
-							<div v-for="(obj) in data" ondblclick="showPop(this,'二氧化碳浓度监控')" class="list" :title="obj.address">
+							<div v-for="(obj) in data" onclick="showPop(this,'二氧化碳浓度监控')" class="list" :title="obj.address">
 								<div style="width: 100%;height:auto;">
 									<div style="height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">ppm</span></div>
 									<div style="height:100%;display: inline-block;vertical-align: middle">
@@ -197,21 +197,20 @@
 					</div>
 				</div>
 			</div>
-
-<div id="bg" onclick="closePop()"></div>
-<div class="box" style="text-align: center;position:fixed;display: none;font-size:18px;padding: 20px;border-radius: 30px">
-	<p id="pop-type" style="font-size: 22px;"><b>温度监控</b></p>
-	<div style="margin: 25px;">选择日期：<label>
-		<input id="selectDate" type="datetime-local" onchange="update()"/>
-	</label></div>
-	<div id="pop-code">传感器编号</div>
-	<div id="pop-address">监测位置</div>
-	<div id="pop-stage" >运行中</div>
-	<div id="pop-line-temp" style="width: 400px;height:300px;display: none;" class="temp-line"></div>
-	<div id="pop-line-hum" style="width: 400px;height:300px;display: none;" class="hum-line"></div>
-	<div id="pop-line-co2" style="width: 400px;height:300px;display: none;" class="co2-line"></div>
-</div>
-</div>
+		</div>
+		<div id="bg" onclick="closePop()"></div>
+		<div class="box" style="text-align: center;position:fixed;display: none;font-size:18px;padding: 20px;border-radius: 30px">
+			<p id="pop-type" style="font-size: 22px;"><b>温度监控</b></p>
+			<div style="margin: 25px;">选择日期：<label>
+				<input id="selectDate" type="datetime-local" onchange="update()"/>
+			</label></div>
+			<div id="pop-code">传感器编号</div>
+			<div id="pop-address">监测位置</div>
+			<div id="pop-stage" >运行中</div>
+			<div id="pop-line-temp" style="height:300px;width:400px;display: none;" class="temp-line"></div>
+			<div id="pop-line-hum" style="height:300px;width:400px;display: none;" class="hum-line"></div>
+			<div id="pop-line-co2" style="height:300px;width:400px;display: none;" class="co2-line"></div>
+		</div>
 	</div>
 </body>
 
@@ -733,6 +732,12 @@
 				}
 			}
 		}
+		$('#pop-line-temp').css("width", $("body").width()*3 / 8 +"px");
+		$('#pop-line-temp').css("height", $("body").width()*2 / 8+"px");
+		$('#pop-line-hum').css("width", $("body").width()*3 / 8 +"px");
+		$('#pop-line-hum').css("height", $("body").width()*2 / 8+"px");
+		$('#pop-line-co2').css("width", $("body").width()*3 / 8 +"px");
+		$('#pop-line-co2').css("height", $("body").width()*2 / 8+"px");
 		showTempLine(tempData);
 		showHumLine(humData);
 		showCo2Line(co2Data);
@@ -780,8 +785,10 @@
 		});
 		const $box = $('.box');
 		$box.css({
-			left: ($("body").width() - $box.width()) / 2 + "px",
-			top: ($(window).height() - $box.height()) / 2 + "px",
+			left: $("body").width() / 8 + "px",
+			right:$("body").width() / 8 + "px",
+			top: $(window).height() / 16 + "px",
+			bottom:$(window).height() / 16 + "px",
 			display: "block"
 		});
 	}
