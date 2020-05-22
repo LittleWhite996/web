@@ -1,27 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link src>
+<style>
+    *{ margin: 0; padding: 0; box-sizing: border-box; }
+    body{ background-color: #f9f9f9; }
+    ul,li{ list-style: none; }
+    .tabs{
+        width: 100%;
+        overflow-x: scroll;
+        display: -webkit-box;
+        display: flex;
+        -webkit-flex-wrap:nowrap;
+        flex-wrap:nowrap;
+        -webkit-justify-content:space-between;
+        justify-content:space-between;
+    }
+    .tab-list{
+        padding: 0 10px;
+        text-align: center;
+        -webkit-flex:1 0 auto;
+        flex:1 0 auto;
+    }
+
+</style>
 </head>
 <body>
-<div id="text"></div>
-<script>
-    fso=new ActiveXObject("Scripting.FileSystemObject");
-    var f=fso.OpenTextFile("C:\\Users\\sickb\\Desktop\\data.csv"); //è¿™é‡Œå¿…é¡»ä¸ºç»å¯¹è·¯å¾„
-    var str="";
-    while(!f.AtEndOfStream){
-        var temp=f.ReadLine().split(); //è¯»å–ä¸€è¡Œæ•°æ®å¹¶æŒ‰ç©ºæ ¼åˆ†å‰²
-        for(i=0;i<temp.length;i++){
-            str+=temp[i]+"&nbsp;";
-        }
-        str+="<br>";
-    }
-    document.getElementById("text").innerHTML=str;
-</script>
-
-
-
+<ul class='tabs'>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+    <li class='tab-list'>webÇ°¶Ë</li>
+</ul>
+<div>ÎÒÊÇÄÚÈİ</div>
 </body>
-</html>

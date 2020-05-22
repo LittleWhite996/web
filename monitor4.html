@@ -94,132 +94,125 @@
 			</nav>
 		</div>
 	</div>
-	<div style="width: 100%;">
-		<table style="width: 100%">
-			<tr>
-				<td style="width: 70%;vertical-align: top;padding:2%;border-right: 2px solid #dddddd" >
-					<div style="text-align: center;">
-						<div style="text-align: left;font-size: 25px;padding: 20px">候车大厅环境监测</div>
-						<div id="pmv" style="width: 100%;text-align: left;">
-							<div style="padding:20px;font-size: 16px;display: inline-block">当前旅客密度：{{density}}</div>
-							<div style="padding:20px;font-size: 16px;display: inline-block">PMV值：{{pmv}}</div>
-						</div>
+	<div>
 
-						<div style="width: 30%;float:left;margin: 1%">
-							<div id = "temperature" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
-								<div style="font-size: 20px;display: inline-block;">温度监控</div>
-								<hr style="height: 1px;background: #0a6b8f22">
-								<div id="average-temp" style="font-size: 14px;">平均:{{avg}}℃</div>
-								<div id = "temperature-scroll" style="max-height:600px;overflow:scroll;text-align: center" >
-									<div v-for="(obj) in data" ondblclick="showPop(this,'温度监控')" style="width:90%;margin-top:15px;
-                        margin-bottom:15px;display:inline-block;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;" :title="obj.address">
-										<div style="width: 100%;height:auto;display: inline-block;">
-											<div style="width: 48%;height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">℃</span></div>
-											<div style="width: 48%;height:100%;display: inline-block;vertical-align: middle">
-												<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
-												<div>位置:{{obj.address}}</div>
+		<div style="display:inline-block;width: 75%;vertical-align: top;padding:2%;border-right: 2px solid #dddddd" >
+			<div style="text-align: center;width: 100%">
+				<div style="text-align: left;font-size: 25px;padding: 20px">候车大厅环境监测</div>
+				<div id="pmv" style="width: 100%;text-align: left;">
+					<div style="padding:20px;font-size: 16px;display: inline-block">当前旅客密度：{{density}}</div>
+					<div style="padding:20px;font-size: 16px;display: inline-block">PMV值：{{pmv}}</div>
+				</div>
 
-												<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
-												<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
-											</div>
-										</div>
+				<div style="width: 100%;margin: 30px 1% 1%;">
+					<div id = "temperature" style="padding:20px;width:100%;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+						<div style="font-size: 20px;text-align: left">温度监控</div>
+						<hr style="height: 1px;background: #0a6b8f22">
+						<div id="average-temp" style="font-size: 14px;text-align: left">平均:{{avg}}℃</div>
+						<div id = "temperature-scroll">
+							<div v-for="(obj) in data" ondblclick="showPop(this,'温度监控')" class="list" :title="obj.address">
+								<div style="width: 100%;height:auto;">
+									<div style="height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">℃</span></div>
+									<div style="height:100%;display: inline-block;vertical-align: middle">
+										<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
+										<div>位置:{{obj.address}}</div>
+
+										<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+										<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
 									</div>
 								</div>
-								<input type="button" onclick="add_temp()" class="setup" value="增加"/>
-
 							</div>
 						</div>
-						<div style="width: 30%;display: inline-block;margin: 1%">
-							<div id = "humidity" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
-								<div style="font-size: 20px;display: inline-block">湿度监控</div>
-								<hr style="height: 1px;background: #0a6b8f22">
-								<div id="average-hum" style="font-size: 14px;">平均:{{avg}}%</div>
-								<div id="humidity-scroll" style="max-height:600px;overflow:scroll;text-align: center">
-									<div v-for="(obj) in data" ondblclick="showPop(this,'湿度监控')" style="margin-top:15px;
-                        margin-bottom:15px;display:inline-block;width:90%;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;" :title="obj.address">
-										<div style="width: 100%;height:auto;display: inline-block;">
-											<div style="width: 48%;height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">%</span></div>
-											<div style="width: 48%;height:100%;display: inline-block;vertical-align: middle">
-												<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
-												<div>位置:{{obj.address}}</div>
+						<input type="button" onclick="add_temp()" class="setup" value="增加"/>
 
-												<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
-												<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<input type="button" onclick="add_hum()" class="setup" value="增加"/>
-
-							</div>
-						</div>
-						<div style="width: 30%;float:right;margin: 1%">
-							<div id = "co2" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
-								<div style="font-size: 20px;display: inline-block">二氧化碳浓度监控</div>
-								<hr style="height: 1px;background: #0a6b8f22">
-								<div id="average-co2" style="font-size: 14px;">平均:{{avg}}ppm</div>
-								<div id="co2-scroll" style="max-height:600px;overflow:scroll;text-align: center">
-									<div v-for="(obj) in data" ondblclick="showPop(this,'二氧化碳浓度监控')" style="margin-top:15px;
-                        margin-bottom:15px;display:inline-block;width:90%;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;" :title="obj.address">
-										<div style="width: 100%;height:auto;display: inline-block;">
-											<div style="width: 48%;height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">ppm</span></div>
-											<div style="width: 48%;height:100%;display: inline-block;vertical-align: middle">
-												<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
-												<div>位置:{{obj.address}}</div>
-												<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
-												<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<input type="button" onclick="add_co2()" class="setup" value="增加"/>
-
-							</div>
-						</div>
 					</div>
-				</td>
-				<td style="width: 28%;padding:2%;vertical-align: top;border-left: 2px solid #0a6b8f;">
-					<div id="outdoor">
-						<div style="text-align: left;font-size: 25px;padding: 30px">室外环境监测</div>
-						<div style="color: white;text-align: left;font-size: 18px;padding-left: 30px;padding-right: 30px"></div>
-						<div style=";font-size:18px;line-height:40px;padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
-							<div>天气情况:</div>
-							<div style="text-align: center">
-								<div style="width: 100%;font-size: 22px;color: #2a6496">{{weather}}</div>
-							</div>
-							<div>室外温度:</div>
-							<div style="text-align: center">
-								<div style="width: 100%;font-size: 22px;color: #2a6496">{{temp}}℃</div>
-							</div>
-							<div>室外湿度:</div>
-							<div style="text-align: center">
-								<div style="width: 100%;font-size: 22px;color: #2a6496">{{hum}}%</div>
-							</div>
-							<div >风速:</div>
-							<div style="text-align: center;">
-								<div style="width: 100%;font-size: 22px;color: #2a6496">{{windy}}</div>
+				</div>
+				<div style="width: 100%;margin: 30px 1% 1%;">
+					<div id = "humidity" style="width:100%;padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+						<div style="font-size: 20px;text-align: left">湿度监控</div>
+						<hr style="height: 1px;background: #0a6b8f22">
+						<div id="average-hum" style="font-size: 14px;text-align: left">平均:{{avg}}%</div>
+						<div id="humidity-scroll">
+							<div v-for="(obj) in data" ondblclick="showPop(this,'湿度监控')" class="list" :title="obj.address">
+								<div style="width: 100%;height:auto;">
+									<div style="height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">%</span></div>
+									<div style="height:100%;display: inline-block;vertical-align: middle">
+										<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
+										<div>位置:{{obj.address}}</div>
+
+										<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+										<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
+						<input type="button" onclick="add_hum()" class="setup" value="增加"/>
 
-				</td>
-			</tr>
-		</table>
-		<div id="bg" onclick="closePop()"></div>
-		<div class="box" style="text-align: center;position:fixed;display: none;font-size:16px;padding: 20px;border-radius: 30px">
-			<p id="pop-type" style="font-size: 22px;"><b>温度监控</b></p>
-			<div style="margin: 20px;">选择日期：<label>
-				<input id="selectDate" type="datetime-local" onchange="update()"/>
-			</label></div>
-			<div id="pop-code">传感器编号</div>
-			<div id="pop-address">监测位置</div>
-			<div id="pop-stage" >运行中</div>
-			<div id="pop-line-temp" style="width: 300px;height:250px;display: none;" class="temp-line"></div>
-			<div id="pop-line-hum" style="width: 300px;height:250px;display: none;" class="hum-line"></div>
-			<div id="pop-line-co2" style="width: 300px;height:250px;display: none;" class="co2-line"></div>
+					</div>
+				</div>
+				<div style="width: 100%;margin: 30px 1% 1%;">
+					<div id = "co2" style="padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+						<div style="font-size: 20px;text-align: left">二氧化碳浓度监控</div>
+						<hr style="height: 1px;background: #0a6b8f22">
+						<div id="average-co2" style="font-size: 14px;text-align: left">平均:{{avg}}ppm</div>
+						<div id="co2-scroll">
+							<div v-for="(obj) in data" ondblclick="showPop(this,'二氧化碳浓度监控')" class="list" :title="obj.address">
+								<div style="width: 100%;height:auto;">
+									<div style="height:100%;display: inline-block;font-size: 30px;vertical-align: middle">{{obj.value}}<span style="font-size: 14px">ppm</span></div>
+									<div style="height:100%;display: inline-block;vertical-align: middle">
+										<div style="width: 100%;height: auto;text-align: center;">{{obj.code}}</div>
+										<div>位置:{{obj.address}}</div>
+										<div v-if="obj.stage==='1'" style="width: 100%;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
+										<div v-else style="width: 100%;text-align: center;padding: 5px;color: #f54349">未运行</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<input type="button" onclick="add_co2()" class="setup" value="增加"/>
+
+					</div>
+				</div>
+			</div>
 		</div>
-	</div>
+		<div style="display:inline-block;width: 23%;padding:2%;vertical-align: top;">
+			<div id="outdoor">
+				<div style="text-align: left;font-size: 25px;padding: 30px">室外环境监测</div>
+				<div style="color: white;text-align: left;font-size: 18px;padding-left: 30px;padding-right: 30px"></div>
+				<div style=";font-size:18px;line-height:40px;padding:20px;border-radius: 20px;box-shadow: 0 0 3px 1px #0a6b8f;">
+					<div>天气情况:</div>
+					<div style="text-align: center">
+						<div style="width: 100%;font-size: 22px;color: #2a6496">{{weather}}</div>
+					</div>
+					<div>室外温度:</div>
+					<div style="text-align: center">
+						<div style="width: 100%;font-size: 22px;color: #2a6496">{{temp}}℃</div>
+					</div>
+					<div>室外湿度:</div>
+					<div style="text-align: center">
+						<div style="width: 100%;font-size: 22px;color: #2a6496">{{hum}}%</div>
+					</div>
+					<div >风速:</div>
+					<div style="text-align: center;">
+						<div style="width: 100%;font-size: 22px;color: #2a6496">{{windy}}</div>
+					</div>
+				</div>
+			</div>
 
+<div id="bg" onclick="closePop()"></div>
+<div class="box" style="text-align: center;position:fixed;display: none;font-size:18px;padding: 20px;border-radius: 30px">
+	<p id="pop-type" style="font-size: 22px;"><b>温度监控</b></p>
+	<div style="margin: 25px;">选择日期：<label>
+		<input id="selectDate" type="datetime-local" onchange="update()"/>
+	</label></div>
+	<div id="pop-code">传感器编号</div>
+	<div id="pop-address">监测位置</div>
+	<div id="pop-stage" >运行中</div>
+	<div id="pop-line-temp" style="width: 400px;height:300px;display: none;" class="temp-line"></div>
+	<div id="pop-line-hum" style="width: 400px;height:300px;display: none;" class="hum-line"></div>
+	<div id="pop-line-co2" style="width: 400px;height:300px;display: none;" class="co2-line"></div>
+</div>
+</div>
+	</div>
 </body>
 
 </html>

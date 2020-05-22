@@ -98,6 +98,7 @@ input.cmn-toggle-round:checked + label:after {
 input[type='button'].setup{
     margin-top:10px;
     font-size: 14px;
+    margin-left: 20px;
     border: 1px solid #0a6b8f44;
     padding:5px 10px;
     color:#0a6b8f;
@@ -109,6 +110,7 @@ input[type='button'].setup{
 input[type='button'].setup:hover{
     color: white;
     background: #0a6b8f77;
+    cursor: pointer;
 
 }
 input[type='number']{
@@ -118,6 +120,43 @@ input[type='text']{
     border: none;
 }
 
-#temperature-scroll::-webkit-scrollbar { width: 0 !important }
-#humidity-scroll::-webkit-scrollbar { width: 0 !important }
-#co2-scroll::-webkit-scrollbar { width: 0 !important }
+#temperature-scroll,#humidity-scroll,#co2-scroll {
+    height:auto;
+    text-align: center;
+    width: 100%;
+    overflow-x: scroll;
+    display: -webkit-box;
+    display: flex;
+    -webkit-flex-wrap:nowrap;
+    flex-wrap:nowrap;
+    -webkit-justify-content:space-between;
+    justify-content:space-between;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+.list{
+    margin: 5px 20px;
+    padding: 0 20px;
+    text-align: center;
+    -webkit-flex:1 0 auto;
+    flex:1 0 auto;
+    border-radius: 20px;
+    width: auto;
+    box-shadow: 0 0 3px 1px #0a6b8f;
+    cursor: pointer;
+}
+.list:hover{
+    background: #0a6b8f11;
+    box-shadow: 0 0 4px 2px #0a6b8f;
+}
+#temperature-scroll::-webkit-scrollbar,#humidity-scroll::-webkit-scrollbar,#co2-scroll::-webkit-scrollbar {
+    height:5px;
+    background-color: #dddddd;
+}
+#temperature-scroll::-webkit-scrollbar-thumb,#humidity-scroll::-webkit-scrollbar-thumb,#co2-scroll::-webkit-scrollbar-thumb{
+    height: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px #0a6b8f;
+    background-color: #0a6b8f44;
+}
