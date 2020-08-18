@@ -1,432 +1,98 @@
-<!doctype html>
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-    <title>管理中心</title>
-    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="css/icomoon.css">
-    <!-- Simple Line Icons -->
-    <link rel="stylesheet" href="css/simple-line-icons.css">
-    <!-- Magnific Popup -->
-    <link rel="stylesheet" href="css/magnific-popup.css">
-    <!-- Bootstrap  -->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/le.css">
-    <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-    <script src="lib/vue.js" type="text/javascript"></script>
-
-        <script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function() {
-            $(".knob").knob();
-        });
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>交通建筑环境控制与节能系统</title>
 
     <script src="js/echarts.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
-
-
-
+    <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="lib/vue.js" type="text/javascript"></script>
+    <script src="data/THC.js"></script>
+    <script src="static/js/active.js"></script>
+    <script src="static/js/jquery-2.2.4.min.js"></script>
+    <script src="static/js/jquery.SlidingBlock.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="icon" href="static/img/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.7.0.css">
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/bootstrap-4.2.1.css">
+    <link rel="stylesheet" href="static/css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/le.css">
 
 </head>
-<body class=" theme-blue" style="background: #0b0b0b">
 
-    <!-- Demo page code -->
-
-    <script type="text/javascript">
-        $(function() {
-            var match = document.cookie.match(new RegExp('color=([^;]+)'));
-            if(match) var color = match[1];
-            if(color) {
-                $('body').removeClass(function (index, css) {
-                    return (css.match (/\btheme-\S+/g) || []).join(' ')
-                })
-                $('body').addClass('theme-' + color);
-            }
-
-            $('[data-popover="true"]').popover({html: true});
-            
-        });
-    </script>
-    <style type="text/css">
-        #line-chart {
-            height:300px;
-            width:800px;
-            margin: 0px auto;
-            margin-top: 1em;
-        }
-        .navbar-default .navbar-brand, .navbar-default .navbar-brand:hover { 
-            color: #fff;
-        }
-    </style>
-
-    <script type="text/javascript">
-        $(function() {
-            var uls = $('.sidebar-nav > ul > *').clone();
-            uls.addClass('visible-xs');
-            $('#main-menu').append(uls.clone());
-        });
-    </script>
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le fav and touch icons -->
-    <link rel="shortcut icon" href="../assets/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-  
-
-  <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
-  <!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
-  <!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
-  <!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
-  <!--[if (gt IE 9)|!(IE)]><!--> 
-   
-  <!--<![endif]-->
-
-    <div class="navbar navbar-default" role="navigation">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="" href="index.html"><span class="navbar-brand"><span class="fa fa-paper-plane"></span> 管理中心</span></a></div>
-
-        <div class="navbar-collapse collapse" style="height: 1px;">
-
-          <ul id="main-menu" class="nav navbar-nav navbar-right">
-          </ul>
-
+<body>
+<div class="nav">
+    <div id="div1" >
+        <header>
+            <div class="container">
+                <div  class="row">
+                    <div class="logo-column">
+                        <a class="logo">
+                            <img src="static/img/logo.jpg" >
+                        </a>
+                        <div class="p-title">交通建筑环境控制与节能系统</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="div3" >
+            <div class=" nav-column clearfix">
+                <nav id="menu">
+                    <ul>
+                        <li class="current-menu-item"><a href="portfolio.html">车站介绍</a></li>
+                        <li class="current-menu-item"><a href="portfolio.html">联系我们</a></li>
+                        <li class="current-menu-item">
+                            <a>关于</a>
+                        </li>
+                        <li class="current-menu-item has-child">
+                            <a>登录</a>
+                            <ul class="sub-menu">
+                                <li><a href="">登录</a></li>
+                                <li><a href="">用户信息</a></li>
+                                <li><a href="">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-      </div>
-
-
-
-    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/"  title="网站模板">管理中心</a></div>
-
-    <div class="sidebar-nav">
-    <ul>
-        <li><a href="help.html" class="nav-header"><i class="fa fa-fw fa-dashboard"></i> 监控中心</a></li>
-        <li><a href="#" data-target=".legal-menu2" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 算法演示(PPD)<i class="fa fa-collapse"></i></a></li>
-        <li><ul class="legal-menu2 nav nav-list collapse" >
-            <li ><a href="nn.html"><span class="fa fa-caret-right"></span> 神经网络</a></li>
-            <li ><a href="df.html"><span class="fa fa-caret-right"></span> 深度森林</a></li>
-        </ul></li>
-
-        <li><a href="#" data-target=".legal-menu3" class="nav-header collapsed" data-toggle="collapse"><i class="fa fa-fw fa-briefcase"></i> 算法演示(PMV)<i class="fa fa-collapse"></i></a></li>
-        <li><ul class="legal-menu3 nav nav-list collapse" >
-            <li ><a href="mse.html"><span class="fa fa-caret-right"></span> MSE</a></li>
-            <li ><a href="r2.html"><span class="fa fa-caret-right"></span> R2</a></li>
-            <li ><a href="time.html"><span class="fa fa-caret-right"></span> TIME</a></li>
-
-        </ul></li>
-
-    </ul>
     </div>
-
-    <div class="content" style="background: linear-gradient(#0b0b4b,#0b0b0b)">
-        <div class="header" style="background: #00000000">
-            <div class="stats"></div>
-            <h1 class="page-title" style="color: white">监控中心</h1>
-        </div>
-        <div class="main-content">
-            <div style="font-size: 20px;color: #ffffff;">温度监控</div>
-            <button onclick="add_temp()">增加</button>
-            <div id = "temperature" >
-                <div v-for="(obj) in data" style="display:inline-block;width:250px;">
-                    <div class="temp-test" style="width: 250px;height: 250px;"></div>
-                    <div style="width: 250px;height: auto;text-align: center;color: #ffffff;">传感器编号：{{obj.code}}</div>
-                    <div v-if="obj.stage==='1'" style="width: 250px;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
-                    <div v-else style="width: 250px;text-align: center;padding: 5px;color: #f54349">未运行</div>
-                </div>
+    <div id="div2" style="width:100%">
+        <nav id="flexmenu">
+            <div class="nav-inner">
+                <ul id="menu-main-menu"  class="main-menu">
+                    <li class="menu-item">
+                        <a href="index.html current-menu-item active">系统首页</a>
+                    </li>
+                    <!-- <li  class="menu-item">
+                        <a href="about.html">模拟演示</a>
+                    </li> -->
+                    <li class="menu-item">
+                        <a href="setup.html">参数设置</a>
+                    </li>
+                    
+                    <li class="menu-item ">
+                        <a href="monitor4.html">环境监测</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="controller.html">空调控制</a>
+                    </li>
+<!--                    <li class="menu-item">-->
+<!--                        <a href="contact.html">数据管理</a>-->
+<!--                    </li>-->
+<!--                    <li class="menu-item">-->
+<!--                        <a href="contact.html">算法演示</a>-->
+<!--                    </li>-->
+                    <div id="datetime" style="color: white;position:absolute;top:10px;left:76%;width:200px;font-size:16px">
+                        <p style="">
+                            <script>setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
+                            </script>
+                        </p>
+                    </div>
+                </ul>
             </div>
-
-            <div style="font-size: 20px;color: #ffffff;">湿度监控</div>
-            <button onclick="add_humid()" >增加</button>
-            <div id = "humidity" >
-                <div v-for="(obj) in data" style="display:inline-block;width:250px;">
-                    <div class="hum-test" style="width: 250px;height: 250px;"></div>
-                    <div style="width: 250px;height: auto;text-align: center;color: #ffffff;">传感器编号：{{obj.code}}</div>
-                    <div v-if="obj.stage==='1'" style="width: 250px;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
-                    <div v-else style="width: 250px;text-align: center;padding: 5px;color: #f54349">未运行</div>
-                </div>
-            </div>
-
-            <div style="font-size: 20px;color: #ffffff;">二氧化碳浓度监控</div>
-            <button onclick="add_co2()" >增加</button>
-            <div id = "co2" >
-                <div v-for="(obj) in data" style="display:inline-block;width:250px;">
-                    <div class="co2-test" style="width: 250px;height: 250px;"></div>
-                    <div style="width: 250px;height: auto;text-align: center;color: #ffffff;">传感器编号：{{obj.code}}</div>
-                    <div v-if="obj.stage==='1'" style="width: 250px;text-align: center;padding: 5px;color: #2aaf67">运行中</div>
-                    <div v-else style="width: 250px;text-align: center;padding: 5px;color: #f54349">未运行</div>
-                </div>
-            </div>
+        </nav>
     </div>
-
-
-    <script src="js/charts/jquery.flot.time.js"></script> <!-- Flot sub -->
-    <script src="lib/bootstrap/js/bootstrap.js"></script>
-    <script type="text/javascript">
-        $("[rel=tooltip]").tooltip();
-        $(function() {
-            $('.demo-cancel-click').click(function(){return false;});
-        });
-
-    </script>
-    <script>
-        vm = new Vue({
-            el:"#temperature",
-            data: {
-                data: [
-                    {
-                        "id": "1",
-                        "code": "1",
-                        "value": "27",
-                        "stage": "1"
-                    },
-                    {
-                        "id": "2",
-                        "code": "2",
-                        "value": "30",
-                        "stage": "1"
-                    },
-                    {
-                        "id": "3",
-                        "code": "3",
-                        "value": null,
-                        "stage": "0"
-                    }
-                ]
-            }
-        });
-
-        vm.$watch('data',function(val){
-            vm.$nextTick(function() {
-                showTemp();
-            });
-        });
-
-        const vm2 = new Vue({
-            el: "#humidity",
-            data: {
-                data:[
-                    {
-                        "id":"1",
-                        "code":"1",
-                        "value":"50",
-                        "stage":"1"
-                    },
-                    {
-                        "id":"2",
-                        "code":"2",
-                        "value":"56",
-                        "stage":"1"
-                    },
-                    {
-                        "id":"3",
-                        "code":"3",
-                        "value":"-",
-                        "stage":"0"
-                    }
-                ]
-            }
-        });
-
-        vm2.$watch('data',function(val){
-            vm2.$nextTick(function() {
-                showHum();
-            });
-        });
-
-        const vm3 = new Vue({
-            el: "#co2",
-            data: {
-                data:[
-                    {
-                        "id":"1",
-                        "code":"1",
-                        "value":"50",
-                        "stage":"1"
-                    },
-                    {
-                        "id":"2",
-                        "code":"2",
-                        "value":"56",
-                        "stage":"1"
-                    },
-                    {
-                        "id":"3",
-                        "code":"3",
-                        "value":"-",
-                        "stage":"0"
-                    }
-                ]
-            }
-        });
-        vm3.$watch('data',function(val){
-            vm3.$nextTick(function() {
-                showCo2();
-            });
-        });
-        function add_temp() {
-            vm.data.push({
-                "id":"-",
-                "code":"-",
-                "value":"-",
-                "stage":"0"
-            });
-        }
-
-        function add_humid() {
-            vm2.data.push({
-                "id":"-",
-                "code":"-",
-                "value":"-",
-                "stage":"0"
-            });
-        }
-
-        function add_co2() {
-            vm3.data.push({
-                "id":"-",
-                "code":"-",
-                "value":"-",
-                "stage":"0"
-            });
-        }
-        showTemp();
-        showHum();
-        showCo2();
-
-        function showTemp() {
-            const x = document.getElementsByClassName("temp-test");
-            for (let i = 0; i < x.length; i++) {
-                const myChart = echarts.init(x[i]);
-                let option;
-                option = {
-                    tooltip: {
-                        formatter: '{a} <br/>{b} : {c}%'
-                    },
-                    series: [
-                        {
-                            name: '温度',
-                            type: 'gauge',
-                            min:0,
-                            max:40,
-                            detail: {fontSize: 20, formatter: '{value}℃'},
-                            data: [{value: vm.data[i].value, name: ''}],
-                            axisLine:{
-                                lineStyle:{
-                                    color:[[0.1, '#49c3f0'],[0.2, '#59b7e0'],
-                                        [0.3, '#6ca9cc'],[0.4, '#8299b8'],
-                                        [0.5, '#9c88a0'],[0.6, '#b47688'],
-                                        [0.7, '#ca6672'],[0.8, '#de575f'],
-                                        [0.9, '#ef4c4f'],[1.0, '#fb4243']]
-
-                                }
-                            }
-                        }
-                    ]
-                };
-                if (option && typeof option === "object") {
-                    myChart.setOption(option, true);
-                }
-            }
-        }
-        function showHum() {
-            const x = document.getElementsByClassName("hum-test");
-            for (let i = 0; i < x.length; i++) {
-                const myChart = echarts.init(x[i]);
-                let option;
-                option = {
-                    tooltip: {
-                        formatter: '{a} <br/>{b} : {c}%'
-                    },
-                    series: [
-                        {
-                            name: '温度',
-                            type: 'gauge',
-                            min:0,
-                            max:100,
-                            detail: {fontSize: 20, formatter: '{value}%'},
-                            data: [{value: vm2.data[i].value, name: ''}],
-                            axisLine:{
-                                lineStyle:{
-                                    color:[[0.1, '#b4fdfb'],[0.2, '#abf2fb'],
-                                        [0.3, '#9ee4fb'],[0.4, '#8fd2fc'],
-                                        [0.5, '#7fbefc'],[0.6, '#6da9fd'],
-                                        [0.7, '#6da9fd'],[0.8, '#5b93fe'],
-                                        [0.9, '#4a80fd'],[1.0, '#2f5ffe']]
-
-                                }
-                            }
-                        }
-                    ]
-                };
-                if (option && typeof option === "object") {
-                    myChart.setOption(option, true);
-                }
-            }
-        }
-        function showCo2() {
-            const x = document.getElementsByClassName("co2-test");
-            for (let i = 0; i < x.length; i++) {
-                const myChart = echarts.init(x[i]);
-                let option;
-                option = {
-                    tooltip: {
-                        formatter: '{a} <br/>{b} : {c}%'
-                    },
-                    series: [
-                        {
-                            name: '温度',
-                            type: 'gauge',
-                            min:0,
-                            max:100,
-                            detail: {fontSize: 20, formatter: '{value}ppm'},
-                            data: [{value: vm3.data[i].value, name: ''}],
-                            axisLine:{
-                                lineStyle:{
-                                    color:[
-                                        [0.1, '#fff09f'],[0.2, '#f8ea9e'],
-                                        [0.3, '#ede19b'],[0.4, '#dfd498'],
-                                        [0.5, '#d1c895'],[0.6, '#c1bb91'],
-                                        [0.7, '#b2ac8d'],[0.8, '#a39f8b'],
-                                        [0.9, '#969488'],[1.0, '#8c8a85']]
-                                }
-                            }
-                        }
-                    ]
-                };
-                if (option && typeof option === "object") {
-                    myChart.setOption(option, true);
-                }
-            }
-        }
-
-
-
-            setInterval(function () {
-                //option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;
-                //myChart.setOption(option, true);
-            },2000);
-
-
-        </script>
+</div>
+<div>

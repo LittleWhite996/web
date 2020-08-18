@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>崇州高铁站候车大厅环境舒适度智能控制系统</title>
+    <title>交通建筑环境控制与节能系统</title>
 	<script src="js/echarts.min.js"></script>
 	<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
 	<script src="lib/vue.js" type="text/javascript"></script>
@@ -29,7 +29,7 @@
 							<a class="logo">
 								<img src="static/img/logo.jpg" >
 							</a>
-							<div class="p-title">崇州高铁站候车大厅环境舒适度智能控制系统</div>
+							<div class="p-title">交通建筑环境控制与节能系统</div>
 						</div>
 
 					</div>
@@ -64,9 +64,9 @@
 						<li class="menu-item">
 							<a href="index.html">系统首页</a>
 						</li>
-						<li  class="menu-item">
+						<!-- <li  class="menu-item">
 							<a href="about.html">模拟演示</a>
-						</li>
+						</li> -->
 						<li class="menu-item">
 							<a href="setup.html">参数设置</a>
 						</li>
@@ -76,12 +76,12 @@
 						<li class="menu-item current-menu-item active">
 							<a href="controller.html">空调控制</a>
 						</li>
-						<li class="menu-item">
-							<a href="contact.html">数据管理</a>
-						</li>
-						<li class="menu-item">
-							<a href="contact.html">算法演示</a>
-						</li>
+<!--						<li class="menu-item">-->
+<!--							<a href="contact.html">数据管理</a>-->
+<!--						</li>-->
+<!--						<li class="menu-item">-->
+<!--							<a href="contact.html">算法演示</a>-->
+<!--						</li>-->
 						<div id="datetime" style="color:#FFFFFF;position:absolute;top:10px;left:76%;width:200px;font-size:16px">
 							<p style="color:#FFFFFF">
 								<script>setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
@@ -136,12 +136,12 @@
 							</td>
 							<td style="width: 30%;text-align: center">
 								<label>
-									<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="obj.temp">
+									<input type="number" maxlength="2" min="0" oninput="validity.valid||(value='');"style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="obj.temp">
 								</label>
 							</td>
 							<td style="width: 30%;text-align: center">
 								<label>
-									<input type="number" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="obj.windy">
+									<input type="number" maxlength="2" min="0" oninput="validity.valid||(value='');" style="width:60%;color:#0a6b8f;text-align:center;border-radius: 10px;background: #0a6b8f22;" :value="obj.windy">
 								</label>
 							</td>
 						</tr>
@@ -219,6 +219,7 @@
 
 
 <script type="text/javascript">
+	websocket = new WebSocket("ws://www.non-nullptr.top:8888/");
 	hub0=[
 		{
 			id:'1',
@@ -293,7 +294,7 @@
 				name:"多联机1",
 				stage:"制冷",
 				temp:0,
-				windy:34,
+				windy:20,
 				brand:'奥克斯',
 				type:'AUX-1130',
 				parameter:'250V 1200mA T',
@@ -303,7 +304,7 @@
 			name:"多联机2",
 			stage:"制冷",
 			temp:0,
-			windy:44,
+			windy:20,
 			brand:'奥克斯',
 			type:'AUX-1130',
 			parameter:'250V 1200mA T',
@@ -313,7 +314,7 @@
 			name:"多联机3",
 			stage:"制热",
 			temp:0,
-			windy:18,
+			windy:20,
 			brand:'奥克斯',
 			type:'AUX-1130',
 			parameter:'250V 1200mA T',
@@ -323,7 +324,7 @@
 			name:"多联机4",
 			stage:"除湿",
 			temp:0,
-			windy:16,
+			windy:20,
 			brand:'奥克斯',
 			type:'AUX-1130',
 			parameter:'250V 1200mA T',
@@ -333,7 +334,7 @@
 			name:"多联机5",
 			stage:"关机",
 			temp:0,
-			windy:0,
+			windy:20,
 			brand:'奥克斯',
 			type:'AUX-1130',
 			parameter:'250V 1200mA T',
@@ -528,7 +529,6 @@
 			imitate_data = eval(res);
 			// $("#model-text").text("人工模式");
 			//$("#model-text").text("调整中");
-			console.log(imitate_data);
 			const day1 = new Date();
 			day1.setDate(day1.getDate());
 			const s1 = day1.format("yyyy-MM-ddThh:00:00");
@@ -563,24 +563,28 @@
 			console.log("ERR");
 		}
 	});
+	flow=new Date().getHours()+flowtimes;
+
 	$.ajax({
 		dataType: 'text',
 		 async: false,
 		url: "http://39.96.45.1:8008/flow/" + new Date().getHours(),
+		//url: "http://39.96.45.1:8008/flow/" + flow,
 		type: 'get',
 		scriptCharset: 'utf-8',
 		success: function (res) {
 			flow = res;
-			console.log(flow)
+
 		},
 		error: function (err) {
 			console.log("ERR");
 		}
 	});
+    flowtimes++;
 
     function roll(obj) {
     	if(obj.checked) {
-			//console.log("sadsadsad")
+			console.log("roll函数")
 			setInterval(function () { updateModel(obj)},10000)
 		}else{
 			location.reload();
@@ -588,7 +592,7 @@
 	}
 
 	function updateModel(obj) {
-    	console.log("执行")
+    	console.log("执行update")
         n1=0;
         n2=0;
 
@@ -607,17 +611,20 @@
 			 obj.checked=false;
          	return;
 		 }
+         tempn1=n1;
+         tempn2=n2;
 
-          if(n1==0){
-		 	n1=1;
-		 }
+         //  if(n1==0){
+		 // 	n1=1;
+		 // }
 
-		console.log("n1"+n1)
-		console.log("n2"+n2)
+		console.log("n1:"+n1)
+		console.log("n2:"+n2)
 		$.ajax({
 			dataType: 'text',
-			// async: false,
+			//async: false,
 			url: "http://39.96.45.1:8008/" + n1 + "/" + n2,
+			//cache:false,
 
 			type: 'get',
 			scriptCharset: 'utf-8',
@@ -625,7 +632,7 @@
 				imitate_data = eval(res);
 				// $("#model-text").text("人工模式");
 				//$("#model-text").text("调整中");
-				console.log(imitate_data);
+				console.log("1ajax:"+imitate_data);
 				const day1 = new Date();
 				day1.setDate(day1.getDate());
 				const s1 = day1.format("yyyy-MM-ddThh:00:00");
@@ -668,20 +675,19 @@
 		});
 
          let flowa=new Date().getHours()+flowtimes;
-         if(flowa>18){
-         	flowtimes=0;
-		 }
+         flowa=flowa%24;
+
          flowtimes++;
          console.log("flowa"+flowa)
 		$.ajax({
 			dataType: 'text',
-			 //async: false,
+			// async: false,
 			url: "http://39.96.45.1:8008/flow/" +flowa,
 			type: 'get',
 			scriptCharset: 'utf-8',
 			success: function (res) {
 				flow = res;
-				console.log(flow)
+				console.log("2ajax"+res)
 			},
 			error: function (err) {
 				console.log("ERR");
@@ -691,25 +697,29 @@
 
 
 			let req_msg;
-			console.log(obj.checked)
-			if (obj.checked) {
+
+			//if (obj.checked) {
 				vm1.multi = multi0;
 				vm2.hub = hub0;
+				console.log("multi0"+multi0);
 				$("#model-text").text("智能模式(计算中)");
 				disable(true);
 
 				const day1 = new Date();
 				day1.setDate(day1.getDate());
-				const s1 = day1.format("yyyy-MM-ddThh:00:00");
+				const s1 = day1.format("yyyy-MM-ddThh:0:00");
 				let month = s1.split("T")[0].split("-")[1];
 				let date = s1.split("T")[0].split("-")[2];
 				let hour = s1.split("T")[1].substr(0, 2);
-				if (month[0] === '0')
-					month = month[1];
-				if (date[0] === '0')
-				if (hour[0] === '0')
-					hour = hour[1];
 
+		         if (month[0] === '0')
+			        month = month[1];
+		        if (date[0] === '0')
+			        date = date[1];
+		        if (hour[0] === '0')
+			        hour = hour[1];
+
+		console.log("检查点1"+obj.checked)
 				for (let i = 0; i < imitate_data.length; i++)
 					if (imitate_data[i][0].split("/")[0] === month
 							&& imitate_data[i][0].split("/")[1] === date
@@ -732,7 +742,7 @@
 
 						}
 						times++;
-
+						console.log("检查点2"+obj.checked)
 						req_msg = {
 							data: data0
 						}
@@ -740,12 +750,14 @@
 						console.log("d"+date)
 						console.log("h"+hour)
 						//console.log(times)
-						console.log(req_msg)
+						console.log("req_msg"+req_msg)
+						console.log("send")
 						websocket.send(JSON.stringify(req_msg));
 						websocket.onmessage = function (event) {
-							console.log(event.data);
+							console.log("eventdata"+event.data);
 							obj = JSON.parse(event.data);
 							if (obj.msg === "success") {
+								console.log("websocket")
 								    if(!obj.data){
 								    	n1=n1;
 								    	n2=n2;
@@ -756,10 +768,13 @@
 									}
 
                                 if(n1==0){
-                                	n1=1;
+                                	n1=tempn1;
 								}
                                 if(n2==0){
-									n2=Math.ceil(Math.random()*8);
+									//n2=Math.ceil(Math.random()*8);
+									n2=tempn2;
+
+									
 								}
 								// alert(n1)
 								for (let i = 0; i < obj.data.length; i++) {
@@ -792,11 +807,11 @@
 							}
 						};
 					}
-				$("#model-text").text("智能模式");
-			} else {
-				$("#model-text").text("人工模式");
-				disable(false);
-			}
+			// 	$("#model-text").text("智能模式");
+			// } else {
+			// 	$("#model-text").text("人工模式");
+			// 	disable(false);
+			// }
 			// let tempHub = vm2.hub;
 			// for(let i=0;i<tempHub.length;i++){
 			// 	if(tempHub[i].id===obj.id){
@@ -837,7 +852,7 @@
 		}
 		vm2.hub = tempHub;
 	}
-	websocket = new WebSocket("ws://www.non-nullptr.top:8888/");
+	//websocket = new WebSocket("ws://www.non-nullptr.top:8888/");
 
 
 
